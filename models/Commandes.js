@@ -1,5 +1,5 @@
-const sequelize = require('sequelize');
-const db = require('../config/database');
+const sequelize = require("sequelize");
+const db = require("../config/database");
 
 const Commande = db.define('commande', {
         name: {
@@ -9,7 +9,7 @@ const Commande = db.define('commande', {
                 type: sequelize.FLOAT, validate: { min: 0 },
         },
         bars_id: {
-                type: DataTypes.INTEGER,
+                type: sequelize.INTEGER,
                 allowNull: false,
                 references: {
                         model: 'bars',

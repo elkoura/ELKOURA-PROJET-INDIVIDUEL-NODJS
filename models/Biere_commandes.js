@@ -1,6 +1,8 @@
-const sequelize = require('sequelize');
-const db = require('../config/database');
-const Biere_commande = db.define('biere_commande', {
+const sequelize = require("sequelize");
+const db = require("../config/database");
+
+
+const BiereCommande = db.define('biere_commande', {
     biere_id: {
         type: sequelize.INTEGER,
         references: {
@@ -14,4 +16,5 @@ const Biere_commande = db.define('biere_commande', {
         }
     },
 });
-module.exports = Biere_commande;
+
+module.exports = BiereCommande;
