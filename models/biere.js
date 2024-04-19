@@ -34,8 +34,12 @@ const Biere = sequelize.define(
     },
     // Définition de la clé étrangère 'bars_id' qui relie chaque bière à un bar.
     bars_id: {
+      // must be fk
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'bars',
+      },
     },
   },
   {
