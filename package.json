@@ -1,7 +1,7 @@
 {
   "name": "elkoura-projet-individuel-nodjs",
   "version": "1.0.0",
-  "description": "",
+  "description": "- [Consignes du projet](#consignes-du-projet)\r   - [Description](#description)\r   - [Schéma de base de donnée](#schéma-de-base-de-donnée)\r     - [Bars](#bars)\r     - [Biere](#biere)\r     - [Biere_Commande (table de liaison)](#biere_commande-table-de-liaison)\r     - [Commande](#commande)\r   - [Liste des endpoints](#liste-des-endpoints)\r     - [Bars](#bars-1)\r     - [Biere](#biere-1)\r     - [Commande](#commande-1)\r     - [Biere_commande](#biere_commande)\r   - [Liste des endpoints avancés](#liste-des-endpoints-avancés)\r   - [Liste des fichiers recommandés](#liste-des-fichiers-recommandés)\r   - [Liste des modules à installer (recommendation)](#liste-des-modules-à-installer-recommendation)\r   - [Liste des contraintes sur mes routes et models :](#liste-des-contraintes-sur-mes-routes-et-models-)\r   - [BONUS 1](#bonus-1)\r   - [BONUS 2](#bonus-2)\r   - [BONUS 3](#bonus-3)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,8 +13,11 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-validator": "^7.0.1",
-    "nodemon": "^3.1.0",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
