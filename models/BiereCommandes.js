@@ -1,18 +1,20 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
+const bieres = require("./Bieres");
+const comamndes = require("./Commandes");
 
 
-const BiereCommande = db.define('biere_commande', {
+const BiereCommande = db.define('biere_commandes', {
     biere_id: {
         type: sequelize.INTEGER,
         references: {
-            model: 'Bières',
+            model: bieres,
         }
     },
     commande_id: {
         type: sequelize.INTEGER,
         references: {
-            model: 'Commandes'
+            model: comamndes
         }
     },
 });

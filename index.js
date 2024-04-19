@@ -1,8 +1,11 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const db = require("./config/database");
 const app = express();
 require("dotenv").config();
 const barsRouter = require("./router/barsRouter");
+const commandesRouter = require("./router/commandesRouter");
 const bodyParser = require("body-parser");
 
 
@@ -17,11 +20,24 @@ const showAllTables = async () => {
     })
 }
 
+const populateDB = async () => {
+  const sqlFilePath = path.resolve(__dirname, 'config/populate.sql');
+
+  const rawSql = fs.readFileSync(sqlFilePath, 'utf-8').toString();
+  return await db.query(rawSql)
+    .then(() => {
+      console.log("Database populated");
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 const initDB = () => {
   db.sync()
     .then(async () => {
       await showAllTables();
-
+      // return await populateDB();
     }).catch(err => {
       console.log(err);
     })
@@ -34,3 +50,5 @@ app.listen(process.env.SERVER_PORT, () => {
 });
 
 app.use("/bars", barsRouter);
+
+app.use("/commandes", commandesRouter);

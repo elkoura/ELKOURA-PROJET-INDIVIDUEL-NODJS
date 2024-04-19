@@ -3,7 +3,7 @@ const controller = {};
 const Bars = require("../models/Bars");
 const Bieres = require("../models/Bieres");
 const Commandes = require("../models/Commandes");
-const BiereCommandes = require("../models/Biere_commandes");
+const BiereCommandes = require("../models/BiereCommandes");
 
 controller.store = (req, res) => {
     const bar = {
