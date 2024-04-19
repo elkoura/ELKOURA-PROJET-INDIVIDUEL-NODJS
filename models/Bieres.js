@@ -4,7 +4,7 @@ const db = require("../config/database");
 
 
 const Biere = db.define(
-  "biere",
+  "bieres",
   {
     name: {
       type: sequelize.STRING,
