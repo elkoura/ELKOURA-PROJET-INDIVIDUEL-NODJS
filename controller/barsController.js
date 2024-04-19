@@ -1,89 +1,82 @@
 const controller = {};
 const Bars = require("../models/Bars");
-const Bieres = require("../models/Bieres");
-const Commandes = require("../models/Commandes");
-const BiereCommandes = require("../models/Biere_commandes");
 
-controller.store = (req, res) => {
-  const bar = {
-    name: req.body.name,
-    adresse: req.body.adresse,
-    tel: req.body.tel,
-    email: req.body.email,
-    description: req.body.description,
-  };
+controller.store = async (req, res) => {
+  try {
+    const bar = {
+      name: req.body.name,
+      adresse: req.body.adresse,
+      tel: req.body.tel,
+      email: req.body.email,
+      description: req.body.description,
+    };
 
-  console.log(bar);
+    console.log(bar);
 
-  Bars.create(bar)
-    .then((bar) => {
-      res.json(bar);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+    const createdBar = await Bars.create(bar);
+    res.json(createdBar);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-controller.update = (req, res) => {
-  const updatedBar = {
-    name: req.body.name,
-    adresse: req.body.adresse,
-    tel: req.body.tel,
-    email: req.body.email,
-    description: req.body.description,
-  };
+controller.update = async (req, res) => {
+  try {
+    const updatedBar = {
+      name: req.body.name,
+      adresse: req.body.adresse,
+      tel: req.body.tel,
+      email: req.body.email,
+      description: req.body.description,
+    };
 
-  Bars.update(updatedBar, { where: { id: req.params.id_bar } })
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+    const result = await Bars.update(updatedBar, { where: { id: req.params.id_bar } });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-controller.delete = (req, res) => {
-  const barId = req.params.id_bar;
+controller.delete = async (req, res) => {
+  try {
+    const barId = req.params.id_bar;
 
-  Bars.destroy({
-    where: {
-      id: barId,
-    },
-  })
-    .then((deletedRows) => {
-      if (deletedRows === 0) {
-        return res.status(404).json({ error: "Bar not found" });
-      }
-      res.json({ message: "Bar deleted successfully" });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+    const deletedRows = await Bars.destroy({
+      where: {
+        id: barId,
+      },
     });
+
+    if (deletedRows === 0) {
+      return res.status(404).json({ error: "Bar not found" });
+    }
+    res.json({ message: "Bar deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-controller.getAll = (req, res) => {
-  Bars.findAll()
-    .then((bars) => {
-      res.json(bars);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+controller.getAll = async (req, res) => {
+  try {
+    const bars = await Bars.findAll();
+    res.json(bars);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-controller.getOne = (req, res) => {
-  const barId = req.params.id_bar;
+controller.getOne = async (req, res) => {
+  try {
+    const barId = req.params.id_bar;
 
-  Bars.findByPk(barId)
-    .then((bar) => {
-      if (!bar) {
-        return res.status(404).json({ error: "Bar not found" });
-      }
-      res.json(bar);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+    const bar = await Bars.findByPk(barId);
+    if (!bar) {
+      return res.status(404).json({ error: "Bar not found" });
+    }
+    res.json(bar);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 module.exports = controller;
