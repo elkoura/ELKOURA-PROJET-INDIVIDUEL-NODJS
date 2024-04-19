@@ -46,7 +46,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere_Commande (table de liaison)
 
-- plat_id:
+- biere_id:
 - commande_id:
 
 ### Commande
@@ -69,11 +69,11 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere
 
-- POST /bars/:id_bar/biere => Ajouter un plat à un bars
-- PUT /biere/:id_biere => Modifier un plat
-- DELETE /biere/:id_biere => Supprimer un plat d'un bars
+- POST /bars/:id_bar/biere => Ajouter une biere à un bars
+- PUT /biere/:id_biere => Modifier une biere
+- DELETE /biere/:id_biere => Supprimer une biere d'un bars
 - GET /bars/:id_bar/biere => Liste des biere d'un bars
-- GET /biere/:id_biere => Détail d'un plat
+- GET /biere/:id_biere => Détail d'une biere
 
 ### Commande
 
@@ -85,8 +85,8 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere_commande
 
-- POST /commandes/:id/biere/:id => Ajouter un plat à une commande
-- DELETE /commandes/:id/biere/:id => Supprimer un plat d'une commande
+- POST /commandes/:id/biere/:id => Ajouter une biere à une commande
+- DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
 
 ## Liste des endpoints avancés
 
