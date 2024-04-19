@@ -9,7 +9,9 @@ const Commande = db.define('commande',  {
         type: sequelize.FLOAT , validate:{min:0},
           },
     bars_id :{
-            type: sequelize.INTEGER
+            type: sequelize.INTEGER,
+            primaryKey: true,
+            auto 
             },
     date : {
             type: sequelize.DATE
@@ -18,4 +20,4 @@ const Commande = db.define('commande',  {
             type: sequelize.STRING
              }//2 vals: (en cours, terminé)
          });
-module.exports = Task;
+module.exports = Commande;

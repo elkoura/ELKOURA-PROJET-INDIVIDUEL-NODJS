@@ -8,4 +8,4 @@ const Biere_commande = db.define('biere_commande',  {
         type: sequelize.INTEGER
           },
          });
-module.exports = Task;
+module.exports = Biere_commande;
