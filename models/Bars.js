@@ -1,7 +1,7 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
 
-const Bars = db.define("Bars", {
+const Bars = db.define("bars", {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
@@ -24,5 +24,6 @@ const Bars = db.define("Bars", {
     type: sequelize.TEXT,
   },
 });
+
 
 module.exports = Bars;
