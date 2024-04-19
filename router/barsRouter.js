@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controller/barsController");
 
-router.post("/", controller.store);
-router.put("/:id_bar", controller.update);
-router.delete("/:id_bar", controller.delete);
+const { validateBarIdParam, validateBarBody } = require("../validators/barValidator");
+const validate = require("../validators/validator");
+
+router.post("/", validateBarBody, validate, controller.store);
+router.put("/:id_bar", validateBarIdParam, validateBarBody, validate, controller.update);
+router.delete("/:id_bar", validateBarIdParam, validate, controller.delete);
 router.get("/", controller.getAll);
-router.get("/:id_bar", controller.getOne);
+router.get("/:id_bar", validateBarIdParam, validate, controller.getOne);
 
 module.exports = router;
