@@ -1,7 +1,10 @@
 const sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Commande = db.define('commande',  {     
+const Commande = db.define('commande',  {  
+    id_commande: {
+        type: sequelize.INTEGER, AutoIncrement:true
+    }   ,
     name: {         
         type: sequelize.STRING
          },
@@ -10,8 +13,6 @@ const Commande = db.define('commande',  {
           },
     bars_id :{
             type: sequelize.INTEGER,
-            primaryKey: true,
-            auto 
             },
     date : {
             type: sequelize.DATE
