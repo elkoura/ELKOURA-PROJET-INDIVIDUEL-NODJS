@@ -9,7 +9,7 @@ const BiereCommande = db.define('biere_commandes', {
         type: sequelize.INTEGER,
         references: {
             model: bieres,
-        }
+        },
     },
     commande_id: {
         type: sequelize.INTEGER,

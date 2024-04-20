@@ -14,6 +14,7 @@ const Commande = db.define('commande', {
                 references: {
                         model: 'bars',
                 },
+                onDelete: 'cascade',
         },
         date: {
                 type: sequelize.DATE
