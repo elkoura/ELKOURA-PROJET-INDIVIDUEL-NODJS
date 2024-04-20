@@ -36,7 +36,7 @@ const populateDB = async () => {
 const initDB = () => {
   db.sync()
     .then(async () => {
-      await showAllTables();
+      // await showAllTables();
       // return await populateDB();
     }).catch(err => {
       console.log(err);
