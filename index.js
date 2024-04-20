@@ -5,7 +5,7 @@ const db = require("./config/database");
 const app = express();
 require("dotenv").config();
 const barsRouter = require("./router/barsRouter");
-const commandesRouter = require("./router/commandesRouter");
+const biereCommandesRouter = require("./router/biereCommandesRouter");
 const bodyParser = require("body-parser");
 
 
@@ -51,4 +51,4 @@ app.listen(process.env.SERVER_PORT, () => {
 
 app.use("/bars", barsRouter);
 
-app.use("/commandes", commandesRouter);
+app.use("/bierecommande", biereCommandesRouter);
