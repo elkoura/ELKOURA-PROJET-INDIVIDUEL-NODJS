@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const commandeController = require("../controller/commandesController");
+
+const createValidationRules = require("../validators/commandeValidator");
 /**
  * 
   POST /bars/:id_bar/commandes => Ajouter une commande à un bars
@@ -9,12 +11,15 @@ const commandeController = require("../controller/commandesController");
   GET /bars/:id_bar/commandes => Liste des commandes d'un bars
   GET /commandes/:id => Détail d'une commande d'un barss
  */
-router.get("/", commandeController.index); //liste des commandes d'un bar
 
-router.get("/edit/:id", commandeController.edit); //detail d'une commande d'un bar
+// router.get("/", commandeController.index); //liste des commandes d'un bar
 
-router.post("/bars/:id_bar/commandes", commandeController.store); //ajouter une commande a un bar
+// router.get("/edit/:id", commandeController.edit); //detail d'une commande d'un bar
 
-router.put("/commandes/:bars_id", commandeController.update); //modifier une commande d'un bar
+router.post("/bars/:id_bar/commandes", createValidationRules(), commandeController.store); //ajouter une commande a un bar
 
-router.delete("/delete/:id"); //supprimer une commande d'un bar
+// router.put("/commandes/:bars_id", commandeController.update); //modifier une commande d'un bar
+
+// router.delete("/delete/:id"); //supprimer une commande d'un bar
+
+module.exports = router;

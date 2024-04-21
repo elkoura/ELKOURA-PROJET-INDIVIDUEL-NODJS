@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", () => {
-	return;
+    return;
 });
 
 module.exports = router;
