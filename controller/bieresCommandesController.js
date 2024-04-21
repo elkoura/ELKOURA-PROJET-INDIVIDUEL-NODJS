@@ -1,4 +1,5 @@
 
+const { validationResult } = require("express-validator");
 const BiereCommandes = require("../models/BiereCommandes");
 
 const BiereCommandesController = {
@@ -6,6 +7,7 @@ const BiereCommandesController = {
         const bieresCommandes = await BiereCommandes.findAll();
         return res.status(200).json(bieresCommandes);
     },
+
     create: (req, res) => {
         const { biere_id, commande_id } = req.params;
 
@@ -24,19 +26,14 @@ const BiereCommandesController = {
 
         BiereCommandes.destroy({ where: { biere_id, commande_id } })
             .then((beerOrdersDeleted) => {
+                let message = `vous avez suprimmer ${beerOrdersDeleted} commande.`;
 
-                let message;
-                if (beerOrdersDeleted === 0) {
-                    message = `aucune commande n'a été suprimmée.`;
-                } else {
-                    message = `vous avez suprimmer ${beerOrdersDeleted} commande.`;
-                }
                 return res.status(200).json({ message });
-
             })
             .catch((err) =>
                 res.status(500).json({ error: err.message })
             );
+
     }
 };
 
