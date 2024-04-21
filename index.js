@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const fs  = require("fs");
+const fs = require("fs");
 const db = require("./config/database");
 const app = express();
 const bodyParser = require("body-parser");
@@ -20,10 +20,9 @@ app.use(
 app.use(bodyParser.json());
 
 const initDB = () => {
-    db.sync({force: true})
-        .catch((err) => {
-            console.log(err);
-        });
+    db.sync({ force: true }).catch((err) => {
+        console.log(err);
+    });
 };
 
 initDB();

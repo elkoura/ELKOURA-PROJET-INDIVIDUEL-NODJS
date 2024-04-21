@@ -6,11 +6,11 @@ const Commande = require("./Commandes");
 const BiereCommande = db.define("biere_commandes", {
     biere_id: {
         type: sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
     },
     commande_id: {
         type: sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
     }
 });
 

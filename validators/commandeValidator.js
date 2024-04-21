@@ -41,16 +41,16 @@ function createValidationRules() {
     ];
 }
 
-function updateValidationRules(){
+function updateValidationRules() {
     return [
-        body("name").optional({nullable: true}),
+        body("name").optional({ nullable: true }),
         body("prix")
-            .optional({nullable: true})
+            .optional({ nullable: true })
             .isFloat({ gt: 0 })
             .bail()
             .withMessage("le prix doit être un nombre positif"),
         body("status")
-            .optional({nullable: true})
+            .optional({ nullable: true })
             .isIn(["en cours", "terminé"])
             .bail()
             .withMessage("le status doit être en cours ou terminé"),
@@ -61,35 +61,35 @@ function updateValidationRules(){
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            
+
             Commandes.findByPk(parseInt(req.params.id_commande))
                 .then(() => {
                     next();
                 })
                 .catch((err) =>
-                    res.status(404).json({ err, message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` })
+                    res
+                        .status(404)
+                        .json({ err, message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` })
                 );
         }
     ];
 }
 
-function deleteValidation(){
+function deleteValidation() {
     return [
         function (req, res, next) {
             Commandes.findByPk(parseInt(req.params.id_commande))
                 .then((model) => {
-                    if(!model) return res.status(404).json({ message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` });
-             
+                    if (!model)
+                        return res
+                            .status(404)
+                            .json({ message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` });
+
                     next();
                 })
-                .catch((err) =>
-                    res.status(500).json({ err  })
-                );
+                .catch((err) => res.status(500).json({ err }));
         }
     ];
-
 }
 
-
-
-module.exports = {createValidationRules, updateValidationRules, deleteValidation};
+module.exports = { createValidationRules, updateValidationRules, deleteValidation };

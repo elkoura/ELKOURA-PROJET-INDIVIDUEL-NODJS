@@ -16,7 +16,7 @@ const Commande = db.define("commande", {
         type: sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: "bars",
+            model: "bars"
         },
         onDelete: "cascade"
     },
