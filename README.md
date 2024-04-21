@@ -84,9 +84,14 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - GET /commandes/:id => Détail d'une commande d'un bars
 
 ### Biere_commande
+  ***note***: Les deux endpoints peuvent etre utiliser soit: 
+  1. envoyer les champs necessaire dans le `payload`.
+  2. utiliser les `params` 
 
-- [x] POST /commandes/:id/biere/:id => Ajouter une biere à une commande
-- [x] DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
+  De preference, utilise plutot le `payload` pour envoyer les données.
+
+- [x] POST **bierecommande**/commandes/:id/biere/:id => Ajouter une biere à une commande
+- [x] DELETE **bierecommande**/commandes/:id/biere/:id => Supprimer une biere d'une commande
 
 ## Liste des endpoints avancés
 
