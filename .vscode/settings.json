@@ -1,0 +1,10 @@
+{
+    "[javascript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.formatOnSave": true
+    },
+    "eslint.validate": ["javascript"],
+    "eslint.options": {
+      "configFile": "./eslint.config.mjs"
+    }
+  }

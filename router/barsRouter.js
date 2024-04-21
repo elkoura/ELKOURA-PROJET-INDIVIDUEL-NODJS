@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controller/barsController");
 
 router.post("/", () => {
-    return
+  return;
 });
 
 module.exports = router;

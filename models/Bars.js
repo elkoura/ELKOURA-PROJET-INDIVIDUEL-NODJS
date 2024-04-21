@@ -20,5 +20,4 @@ const Bars = db.define("bars", {
   },
 });
 
-
 module.exports = Bars;

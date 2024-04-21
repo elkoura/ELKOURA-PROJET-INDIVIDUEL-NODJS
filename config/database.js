@@ -6,5 +6,4 @@ const db = new sequelize({
   logging: false,
 });
 
-
-module.exports = db
+module.exports = db;
