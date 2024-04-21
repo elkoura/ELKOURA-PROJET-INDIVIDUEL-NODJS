@@ -1,6 +1,4 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
 const db = require("./config/database");
 const app = express();
 require("dotenv").config();
@@ -8,30 +6,26 @@ const barsRouter = require("./router/barsRouter");
 const biereCommandesRouter = require("./router/biereCommandesRouter");
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 app.use(bodyParser.json());
 
-const showAllTables = async () => {
-  db.getQueryInterface()
-    .showAllTables()
-    .then((tables) => {
-      console.log(`Tables created: ${tables}`); // This will print an array of table names
-    });
-};
+// const populateDB = async () => {
+//   const sqlFilePath = path.resolve(__dirname, "config/populate.sql");
 
-const populateDB = async () => {
-  const sqlFilePath = path.resolve(__dirname, "config/populate.sql");
-
-  const rawSql = fs.readFileSync(sqlFilePath, "utf-8").toString();
-  return await db
-    .query(rawSql)
-    .then(() => {
-      console.log("Database populated");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+//   const rawSql = fs.readFileSync(sqlFilePath, "utf-8").toString();
+//   return await db
+//     .query(rawSql)
+//     .then(() => {
+//       console.log("Database populated");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 const initDB = () => {
   db.sync()

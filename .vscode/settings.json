@@ -1,10 +1,10 @@
 {
-    "[javascript]": {
-      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-      "editor.formatOnSave": true
-    },
-    "eslint.validate": ["javascript"],
-    "eslint.options": {
-      "configFile": "./eslint.config.mjs"
-    }
-  }
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "prettier.configPath": "",
+  "editor.formatOnPaste": true,
+  "prettier.useEditorConfig": false,
+  "eslint.run": "onSave",
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.rules": null
+}

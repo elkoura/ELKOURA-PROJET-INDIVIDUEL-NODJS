@@ -7,7 +7,9 @@ const biereController = {
       const biere = await Biere.create(req.body);
       res.status(201).json(biere);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     }
   },
 
@@ -16,11 +18,17 @@ const biereController = {
     try {
       const { id_biere } = req.params;
       await Biere.update(req.body, {
-        where: { id: id_biere },
+        where: {
+          id: id_biere
+        }
       });
-      res.status(200).json({ message: "Bière mise à jour" });
+      res.status(200).json({
+        message: "Bière mise à jour"
+      });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     }
   },
 
@@ -29,11 +37,17 @@ const biereController = {
     try {
       const { id_biere } = req.params;
       await Biere.destroy({
-        where: { id: id_biere },
+        where: {
+          id: id_biere
+        }
       });
-      res.status(200).json({ message: "Bière supprimée" });
+      res.status(200).json({
+        message: "Bière supprimée"
+      });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     }
   },
 
@@ -42,11 +56,15 @@ const biereController = {
     try {
       const { id_bar } = req.params;
       const bieres = await Biere.findAll({
-        where: { bars_id: id_bar },
+        where: {
+          bars_id: id_bar
+        }
       });
       res.status(200).json(bieres);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     }
   },
 
@@ -57,9 +75,11 @@ const biereController = {
       const biere = await Biere.findByPk(id_biere);
       res.status(200).json(biere);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     }
-  },
+  }
 };
 
 module.exports = biereController;

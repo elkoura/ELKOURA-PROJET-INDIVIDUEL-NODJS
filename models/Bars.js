@@ -4,20 +4,20 @@ const db = require("../config/database");
 const Bars = db.define("bars", {
   name: {
     type: sequelize.STRING,
-    unique: true,
+    unique: true
   },
   adresse: {
-    type: sequelize.STRING,
+    type: sequelize.STRING
   },
   tel: {
-    type: sequelize.STRING,
+    type: sequelize.STRING
   },
   email: {
-    type: sequelize.STRING,
+    type: sequelize.STRING
   },
   description: {
-    type: sequelize.TEXT,
-  },
+    type: sequelize.TEXT
+  }
 });
 
 module.exports = Bars;

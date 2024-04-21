@@ -7,15 +7,15 @@ const BiereCommande = db.define("biere_commandes", {
   biere_id: {
     type: sequelize.INTEGER,
     references: {
-      model: Biere,
-    },
+      model: Biere
+    }
   },
   commande_id: {
     type: sequelize.INTEGER,
     references: {
-      model: Commande,
-    },
-  },
+      model: Commande
+    }
+  }
 });
 
 module.exports = BiereCommande;
