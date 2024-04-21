@@ -10,7 +10,8 @@ function createValidationRules() {
         body("name").notEmpty().bail().withMessage("le nom est requis"),
         body("prix")
             .notEmpty()
-            .bail().withMessage("le prix est obligatoire")
+            .bail()
+            .withMessage("le prix est obligatoire")
             .isFloat({ gt: 0 })
             .bail()
             .withMessage("le prix doit être un nombre positif"),

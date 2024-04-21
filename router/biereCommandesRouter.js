@@ -3,18 +3,12 @@ const biereCommandesController = require("../controller/bieresCommandesControlle
 const { createOrDeleteValidationRules } = require("../validators/biereCommandeValidator");
 const router = express.Router();
 
-
 // using just the index route:
 router.post("/", createOrDeleteValidationRules(), biereCommandesController.create);
 router.delete("/", createOrDeleteValidationRules(), biereCommandesController.create);
 
 // using url params:
 router.post("/commande/:commande_id/biere/:biere_id", biereCommandesController.create);
-router.delete(
-    "/commande/:commande_id/biere/:biere_id",
-    biereCommandesController.delete
-);
-
-
+router.delete("/commande/:commande_id/biere/:biere_id", biereCommandesController.delete);
 
 module.exports = router;
