@@ -7,9 +7,9 @@ const biereCommandesRouter = require("./router/biereCommandesRouter");
 const bodyParser = require("body-parser");
 
 app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
+	bodyParser.urlencoded({
+		extended: false
+	})
 );
 app.use(bodyParser.json());
 
@@ -28,20 +28,20 @@ app.use(bodyParser.json());
 // };
 
 const initDB = () => {
-  db.sync()
-    .then(async () => {
-      // await showAllTables();
-      // return await populateDB();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+	db.sync()
+		.then(async () => {
+			// await showAllTables();
+			// return await populateDB();
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 };
 
 initDB();
 
 app.listen(process.env.SERVER_PORT, () => {
-  console.log("App running on port " + process.env.SERVER_PORT);
+	console.log("App running on port " + process.env.SERVER_PORT);
 });
 
 app.use("/bars", barsRouter);
