@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+const fs  = require("fs");
 const db = require("./config/database");
 const app = express();
 const bodyParser = require("body-parser");
@@ -14,28 +16,11 @@ app.use(
         extended: false
     })
 );
+
 app.use(bodyParser.json());
 
-// const populateDB = async () => {
-//   const sqlFilePath = path.resolve(__dirname, "config/populate.sql");
-
-//   const rawSql = fs.readFileSync(sqlFilePath, "utf-8").toString();
-//   return await db
-//     .query(rawSql)
-//     .then(() => {
-//       console.log("Database populated");
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
 const initDB = () => {
-    db.sync()
-        .then(async () => {
-            // await showAllTables();
-            // return await populateDB();
-        })
+    db.sync({force: true})
         .catch((err) => {
             console.log(err);
         });

@@ -6,15 +6,11 @@ const Commande = require("./Commandes");
 const BiereCommande = db.define("biere_commandes", {
     biere_id: {
         type: sequelize.INTEGER,
-        references: {
-            model: Biere
-        }
+        allowNull: false,
     },
     commande_id: {
         type: sequelize.INTEGER,
-        references: {
-            model: Commande
-        }
+        allowNull: false,
     }
 });
 

@@ -1,12 +1,23 @@
 const Commande = require("../models/Commandes"); //pour utiliser la classe product
 //
-//POST /bars/:id_bars/commandes => Ajouter une commande a un bars
-//PUT /commandes/:id_commandes => Modifier une commande
 //DELETE /commandes/:id_commandes Supprimer une commande d'un bars
-//GET /bars/:id_bars/commandes => Liste des commandes d'un bars
-//GET /commandes/:id => detal dune commande d'un bars
 //
 const CommandeController = {
+    index: (req, res) => {
+          const { id_bar } = req.params;  
+          
+          Commande.findAll({
+            where: {
+                bars_id: parseInt(id_bar)   
+            }
+          }).then((commandes) => {
+            const commandeArray = commandes.map((commande) => commande.dataValues);
+            res.json(commandeArray);
+
+          }).catch((err)=>{
+            res.status(500).json({ error: err.message });
+          });
+    },
     store: (req, res) => {
         const { id_bar } = req.params;
 
@@ -25,6 +36,40 @@ const CommandeController = {
             .catch((error) => {
                 res.status(500).json({ error: error.message });
             });
+    },
+    update:  (req, res) => {
+        const { id_commande } = req.params;
+        
+        Commande.findByPk(id_commande).then((commandeModel) => {
+            const { name, prix, status } = req.body;
+            const model = commandeModel.dataValues;
+            const commande = {
+                name: name ?? model.name,
+                prix: prix ?? model.prix,
+                status: status ?? model.status
+            };
+
+            return Commande.update(commande, { where: { id: id_commande } })
+
+        }).then(() => {
+            res.status(200).json({ message: "commande modifiée" });
+             
+        }).catch(err => res.status(500).json({ error: err.message }));
+
+    },
+    details: (req, res) => {
+        Commande.findByPk(req.params.id).then((commande) => {
+            res.json(commande);
+        }).catch(err => res.status(500).json({ error: err.message }));
+    },
+    delete: (req, res) => {
+        const { id_commande } = req.params;
+        Commande.destroy({ where: { id: id_commande } }).then(() => {
+            return res.json({ message: "commande:" + " " + id_commande + " supprimée" });
+
+        })
+        .catch(err => res.status(500).json({ error: err.message }));
+    
     }
 };
 //controller d'affichage des commandes

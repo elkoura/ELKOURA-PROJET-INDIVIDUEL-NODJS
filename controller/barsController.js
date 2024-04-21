@@ -10,7 +10,6 @@ controller.store = (req, res) => {
         price: req.body.price
     };
 
-    console.log(bar);
 
     Bars.create(bar)
         .then((bar) => {
