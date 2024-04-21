@@ -1,6 +1,6 @@
 const express = require("express");
-const biereController = require("../controllers/biereController");
 const router = express.Router();
+const biereController = require("../controller/biereController");
 
 router.post("/:id_bar/biere", biereController.createBiere);
 router.put("/biere/:id_biere", biereController.updateBiere);
