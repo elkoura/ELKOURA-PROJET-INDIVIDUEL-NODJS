@@ -2,13 +2,19 @@
     "env": {
         "node": true
     },
-    "plugins": ["prettier"],
+    "plugins": [
+        "prettier"
+    ],
     "parserOptions": {
         "sourceType": "commonjs",
         "ecmaVersion": "latest"
     },
-    "extends": ["plugin:prettier/recommended"],
+    "extends": [
+        "plugin:prettier/recommended"
+    ],
     "rules": {
-        "prettier/prettier": ["error"]
+        "prettier/prettier": [
+            "error"
+        ]
     }
 }

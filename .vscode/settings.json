@@ -18,5 +18,14 @@
         "editor.maxTokenizationLineLength": 2500,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.useTabs": true
+    "prettier.useTabs": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "eslint.options": {
+        "configFile": "/path/to/your/.eslintrc.json"
+    }
 }
