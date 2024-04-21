@@ -20,6 +20,9 @@
   - [BONUS 2](#bonus-2)
   - [BONUS 3](#bonus-3)
 
+  
+---
+
 ## Description
 
 Création d'une API pour un site de bars qui permet de gérer les bars, les biere et les commandes des clients.  
@@ -57,6 +60,8 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - date: date
 - status : string (en cours, terminée)
 
+---
+
 ## Liste des endpoints
 
 ### Bars
@@ -67,6 +72,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - GET /bars => Liste des bars
 - GET /bars/:id_bar => Détail d'un bars
 
+
 ### Biere
 
 - POST /bars/:id_bar/biere => Ajouter une biere à un bars
@@ -74,6 +80,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - DELETE /biere/:id_biere => Supprimer une biere d'un bars
 - GET /bars/:id_bar/biere => Liste des biere d'un bars
 - GET /biere/:id_biere => Détail d'une biere
+
 
 ### Commande
 
@@ -83,7 +90,6 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - GET /bars/:id_bar/commandes => Liste des commandes d'un bars
 - GET /commandes/:id => Détail d'une commande d'un bars
 
----
 
 ### Biere_commande
 
