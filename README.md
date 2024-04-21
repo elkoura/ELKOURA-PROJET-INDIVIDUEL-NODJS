@@ -92,26 +92,26 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 1. envoyer les champs necessaire dans le `payload`.
   Envoie un requete au endpoint:
 
-  **Methodes**
+      **Methodes**
 
-  - POST
-  - DELETE
+      - POST
+      - DELETE
 
-  `/bierecommande/`
+      `/bierecommande`
 
-  Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payload:
+      Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payload:
 
-  ```json
-  {
-    "commande_id": 1,
-    "biere_id":2
-  }
-  ```
+      ```json
+      {
+        "commande_id": 1,
+        "biere_id":2
+      }
+      ```
   
 2. utiliser les ` url params`
 
-- [x] POST /commandes/:id/biere/:id => Ajouter une biere à une commande
-- [x] DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
+    - [x] POST /commandes/:id/biere/:id => Ajouter une biere à une commande
+    - [x] DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
 
 ---
 
