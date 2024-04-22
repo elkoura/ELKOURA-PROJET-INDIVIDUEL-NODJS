@@ -1,15 +1,33 @@
+const { Op } = require("sequelize");
 const Commande = require("../models/Commandes"); //pour utiliser la classe product
 //
 //DELETE /commandes/:id_commandes Supprimer une commande d'un bars
-//
+
 const CommandeController = {
     index: (req, res) => {
         const { id_bar } = req.params;
+        const { date, prix_min, prix_max } = req.query;
+
+        let whereOptions = {
+            bars_id: parseInt(id_bar)
+        };
+
+        if (date) {
+            whereOptions.date = date;
+        }
+
+        if (prix_min || prix_max) {
+            whereOptions.prix = {};
+            if (prix_min) {
+                whereOptions.prix[Op.gte] = prix_min;
+            }
+            if (prix_max) {
+                whereOptions.prix[Op.lte] = prix_max;
+            }
+        }
 
         Commande.findAll({
-            where: {
-                bars_id: parseInt(id_bar)
-            }
+            where: whereOptions,
         })
             .then((commandes) => {
                 const commandeArray = commandes.map((commande) => commande.dataValues);

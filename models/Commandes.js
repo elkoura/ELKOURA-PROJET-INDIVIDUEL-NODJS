@@ -21,10 +21,7 @@ const Commande = db.define("commande", {
         // onDelete: "cascade"
     },
     date: {
-        type: sequelize.DATE,
-        validate: {
-            isDate: true
-        }
+        type: sequelize.STRING,
     },
     status: {
         type: sequelize.STRING
