@@ -197,9 +197,9 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 -   [x] Le nom d'un bars doit être unique
 -   [x] Le prix d'une biere doit être positif
--   [] Le prix d'une commande doit être positif
+-   [x] Le prix d'une commande doit être positif
 
--   [] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
+-   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
 -   [] Quand je supprime une biere, je supprime toutes les commandes associées
 -   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
 

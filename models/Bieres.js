@@ -31,4 +31,6 @@ const Biere = db.define("bieres", {
     }
 });
 
+// Biere.hasMany(BiereCommande);
+
 module.exports = Biere;
