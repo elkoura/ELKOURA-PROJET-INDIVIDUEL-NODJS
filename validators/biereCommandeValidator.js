@@ -61,9 +61,7 @@ function createOrDeleteValidationRules() {
                             error: err
                         });
                     });
-            }
-
-            if (req.method === "DELETE") {
+            } else if (req.method === "DELETE") {
                 const { biere_id, commande_id } = req.params;
                 BiereCommandes.findOne({
                     where: {

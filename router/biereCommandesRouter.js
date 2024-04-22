@@ -5,7 +5,7 @@ const router = express.Router();
 
 // using just the index route:
 router.post("/", createOrDeleteValidationRules(), biereCommandesController.create);
-router.delete("/", createOrDeleteValidationRules(), biereCommandesController.create);
+router.delete("/", createOrDeleteValidationRules(), biereCommandesController.delete);
 
 // using url params:
 router.post("/commande/:commande_id/biere/:biere_id", biereCommandesController.create);
