@@ -22,12 +22,13 @@ controller.store = async (req, res) => {
 
 controller.update = async (req, res) => {
   try {
+    const selectedBar = await Bars.findByPk(req.params.id_bar);
     const updatedBar = {
-      name: req.body.name,
-      adresse: req.body.adresse,
-      tel: req.body.tel,
-      email: req.body.email,
-      description: req.body.description,
+      name: req.body.name ?? selectedBar.name,
+      adresse: req.body.adresse ?? selectedBar.adresse,
+      tel: req.body.tel ?? selectedBar.tel,
+      email: req.body.email ?? selectedBar.email,
+      description: req.body.description ?? selectedBar.description,
     };
 
     const result = await Bars.update(updatedBar, { where: { id: req.params.id_bar } });
