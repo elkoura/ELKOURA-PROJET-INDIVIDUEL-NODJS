@@ -9,7 +9,7 @@ const biereController = {
                 type: req.body.type,
                 price: req.body.price,
                 description: req.body.description,
-                bar_id: req.body.bar_id,
+                bar_id: req.body.bar_id
             };
 
             const createdBiere = await Biere.create(newBiere);
