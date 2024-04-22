@@ -8,6 +8,7 @@ require("dotenv").config();
 
 // routers
 const barsRouter = require("./router/barsRouter");
+const BiereRouter = require("./router/biereRouter");
 const CommandeRouter = require("./router/commandeRouter");
 const BiereCommandesRouter = require("./router/biereCommandesRouter");
 
@@ -20,7 +21,7 @@ app.use(
 app.use(bodyParser.json());
 
 const initDB = () => {
-    db.sync({ force: true }).catch((err) => {
+    db.sync().catch((err) => {
         console.log(err);
     });
 };
@@ -32,5 +33,6 @@ app.listen(process.env.SERVER_PORT, () => {
 });
 
 app.use("/bars", barsRouter);
+app.use("/bieres", BiereRouter);
 app.use("/commande", CommandeRouter);
 app.use("/bierecommande", BiereCommandesRouter);

@@ -17,11 +17,14 @@ const Commande = db.define("commande", {
         allowNull: false,
         references: {
             model: "bars"
-        },
-        onDelete: "cascade"
+        }
+        // onDelete: "cascade"
     },
     date: {
-        type: sequelize.DATE
+        type: sequelize.DATE,
+        validate: {
+            isDate: true
+        }
     },
     status: {
         type: sequelize.STRING
@@ -32,5 +35,6 @@ Commande.hasMany(BiereCommande, {
     foreignKey: "commande_id",
     onDelete: "cascade"
 });
+
 
 module.exports = Commande;
