@@ -1,6 +1,5 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
-const BiereCommande = require("./biereCommandes");
 
 const Biere = db.define("bieres", {
     name: {

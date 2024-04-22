@@ -27,6 +27,29 @@
 Création d'une API pour un site de bars qui permet de gérer les bars, les biere et les commandes des clients.  
 Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
+Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-team?invite_code=fa464ca04af6e5769fedc21889a12056`
+
+Install les dependences:
+
+```bash
+npm i
+```
+
+Les dependances:
+
+-   express
+-   body-parser
+-   sequelize
+-   sqlite3
+-   nodemon
+-   express-validator
+-   dotenv
+-   faker(Optionnel pour générer des fausses données)
+-   jest(Optionnel pour les tests)
+-   supertest(Optionnel pour les tests)
+
+---
+
 ## Schéma de base de donnée
 
 ### Bars
@@ -91,59 +114,61 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 **_note_**: Les deux endpoints peuvent etre utiliser soit:
 
-1.  envoyer les champs necessaire dans le `payload`.
-    Envoie un requete au endpoint:
+1.  Endpoint: `/bierecommande/`
 
-        **Methodes**
+envoyer les champs necessaire dans le `payload`.
 
-        - POST
-        - DELETE
+**Methodes**
 
-        `/bierecommande/`
+-   POST
+-   DELETE
 
-        Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payload:
+Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payload:
 
-        ```json
-        {
-          "commande_id": 1,
-          "biere_id":2
-        }
-        ```
+```json
+{
+    "commande_id": 1,
+    "biere_id": 2
+}
+```
 
 2.  utiliser les ` url params`
 
-    -   [x] POST /commandes/:id/biere/:id => Ajouter une biere à une commande
-    -   [x] DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
+-   POST `/bierecommande/commandes/:id/biere/:id `=> Ajouter une biere à une commande
+
+-   DELETE `/bierecommande/commandes/:id/biere/:id `=> Supprimer une biere d'une commande
 
 ---
 
-## Liste des contraintes sur mes routes et models :
+## Liste des contraintes sur mes:
 
 ### Routes
 
-- [] Tous les champs obligatoires doivent être renseignés (?)
-- [] Le status d'une commande doit être "en cours" ou "terminée"
-- [] Le status d'une commande ne peut pas être modifié si elle contient des biere
-- [] une commande ne peut pas être modifié si elle est terminée
-- [] La date d'une commande ne peut pas être supérieure à la date du jour
+-   [x] Tous les champs obligatoires doivent être renseignés (?)
+-   [x] Le status d'une commande doit être "en cours" ou "terminée"
+-   [x] une commande ne peut pas être modifié si elle est terminée
+-   [x] La date d'une commande ne peut pas être supérieure à la date du jour
 
 ### Models
 
-- [] Le nom d'un bars doit être unique
-- [] Le prix d'une biere doit être positif
-- [] Le prix d'une commande doit être positif
+-   [x] Le nom d'un bars doit être unique
+-   [x] Le prix d'une biere doit être positif
+-   [x] Le prix d'une commande doit être positif
+-   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
+-   [x] Quand je supprime une biere, je supprime toutes les commandes associées et les biere commandes associées
+-   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
 
-- [] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
-- [] Quand je supprime une biere, je supprime toutes les commandes associées
-- [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
+---
 
 ## Liste des endpoints avancés
 
--   GET /bars/:id_bar/commandes?date=2021-01-01 => Liste des commandes d'un bars à une date donnée
--   GET /bars/:id_bar/commandes?prix_min=10&prix_max=20 => Liste des commandes d'un bars avec un prix compris entre 10 et 20
--   GET /bars?ville=Paris => Liste des bars d'une ville donnée
+-   [x] GET /bars/:id_bar/commandes?date=2021-01-01 => Liste des commandes d'un bars à une date donnée
+-   [x] GET /bars/:id_bar/commandes?prix_min=10&prix_max=20 => Liste des commandes d'un bars avec un prix compris entre 10 et 20
+-   [x] GET /bars?ville=Paris => Liste des bars d'une ville donnée
 -   GET /bars?name=example => Liste des bars dont le nom contient "example"
 -   GET /bars/:id_bar/degree => Degré d'alcool moyen des bières d'un bars
+
+---
 
 ## Liste des fichiers recommandés
 
@@ -173,35 +198,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
         index.js  
         package.json
 
-## Liste des modules à installer (recommendation)
-
--   express
--   body-parser
--   sequelize
--   sqlite3
--   nodemon
--   express-validator
--   dotenv
--   faker(Optionnel pour générer des fausses données)
--   jest(Optionnel pour les tests)
--   supertest(Optionnel pour les tests)
-
-## Liste des contraintes sur mes routes et models :
-
--   [] Tous les champs obligatoires doivent être renseignés (?)
--   [] Le status d'une commande doit être "en cours" ou "terminée"
--   [] une commande ne peut pas être modifié si elle est terminée
--   [] La date d'une commande ne peut pas être supérieure à la date du jour
-
-### Models
-
--   [] Le nom d'un bars doit être unique
--   [] Le prix d'une biere doit être positif
--   [] Le prix d'une commande doit être positif
-
--   [] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
--   [] Quand je supprime une biere, je supprime toutes les commandes associées
--   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
+---
 
 ## BONUS 1
 
@@ -225,3 +222,6 @@ Tester les routes avec Jest et Supertest
 ## BONUS 3
 
 Venez me voir pour le bonus 3
+
+-   auth
+-   vue/angular

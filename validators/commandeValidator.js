@@ -21,7 +21,16 @@ function createValidationRules() {
             .isIn(["en cours", "terminé"])
             .bail()
             .withMessage("le status doit être en cours ou terminé"),
-        body("date").optional().isDate().bail().withMessage("la date doit être une date valide"),
+        body("date")
+            .optional({ values: "null" })
+            .isDate()
+            .bail()
+            .withMessage("la date doit être une date valide")
+            .custom((value) => {
+                return new Date(value) < new Date();
+            })
+            .bail()
+            .withMessage("la date peut pas être dans le futur"),
         // middleware field validation
         function (req, res, next) {
             const errors = validationResult(req);
@@ -63,8 +72,14 @@ function updateValidationRules() {
             }
 
             Commandes.findByPk(parseInt(req.params.id_commande))
-                .then(() => {
-                    next();
+                .then((commande) => {
+                    if (commande.status === "terminé") {
+                        return res
+                            .status(409)
+                            .json({ message: "Impossible de modifier la commande, elle est déjà terminée" });
+                    } else {
+                        next();
+                    }
                 })
                 .catch((err) =>
                     res

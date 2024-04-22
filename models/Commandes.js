@@ -1,6 +1,6 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
-const BiereCommande = require("./biereCommandes");
+const BiereCommande = require("./BiereCommandes");
 
 const Commande = db.define("commande", {
     name: {
@@ -17,11 +17,11 @@ const Commande = db.define("commande", {
         allowNull: false,
         references: {
             model: "bars"
-        },
-        onDelete: "cascade"
+        }
+        // onDelete: "cascade"
     },
     date: {
-        type: sequelize.DATE
+        type: sequelize.STRING
     },
     status: {
         type: sequelize.STRING
