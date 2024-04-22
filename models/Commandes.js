@@ -1,6 +1,6 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
-const BiereCommande = require("./biereCommandes");
+const BiereCommande = require("./BiereCommandes");
 
 const Commande = db.define("commande", {
     name: {
