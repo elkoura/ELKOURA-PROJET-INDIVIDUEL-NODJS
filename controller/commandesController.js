@@ -1,4 +1,4 @@
-const Commande = require('../models/commandes.js'); //pour utiliser la classe product
+const Commande = require('../models/Commandes.js'); //pour utiliser la classe product
 const controller = {}; //
 //
 //POST /bars/:id_bars/commandes => Ajouter une commande a un bars
@@ -9,7 +9,7 @@ const controller = {}; //
 //
 
 //controller d'affichage des commandes
-controller.getAll = (req, res) => { //arguments de getAll():requete (req) et resultat (res)
+controller.index = (req, res) => { //arguments de getAll():requete (req) et resultat (res)
     Commande.findAll().then((queryResult) => { // findAll() , then() = fonctions (req = findAll() 												,res=queryResult()
       res.render("index", {commandes : queryResult}) // render=fonction res
     })

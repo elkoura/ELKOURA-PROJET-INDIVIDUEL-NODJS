@@ -9,6 +9,7 @@ const commandeController = require("../controller/commandesController")
   GET /bars/:id_bar/commandes => Liste des commandes d'un bars
   GET /commandes/:id => Détail d'une commande d'un bars
  */
+//ajouter validator-> router.get("/", validator,commandeController.index)
 router.get("/", commandeController.index);//liste des commandes d'un bar
 
 router.get("/edit/:id", commandeController.edit);//detail d'une commande d'un bar

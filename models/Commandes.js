@@ -2,6 +2,10 @@ const sequelize = require("sequelize");
 const db = require("../config/database");
 
 const Commande = db.define('commande', {
+
+        id_commande: {
+                type: sequelize.INTEGER, primaryKey: true, autoIncrement: true
+        },
         name: {
                 type: sequelize.STRING
         },
@@ -19,7 +23,7 @@ const Commande = db.define('commande', {
                 type: sequelize.DATE
         },
         status: {
-                type: sequelize.STRING
+                type: sequelize.STRING//, Sequelize.ENUM,values: ['en cours','terminé']
         }//2 vals: (en cours, terminé)
 });
 module.exports = Commande;
