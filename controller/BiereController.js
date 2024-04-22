@@ -1,4 +1,4 @@
-const Biere = require("../models/Biere");
+const Biere = require("../models/Bieres");
 
 const biereController = {
     // Create a new beer
@@ -7,9 +7,9 @@ const biereController = {
             const newBiere = {
                 name: req.body.name,
                 type: req.body.type,
-                price: req.body.price,
+                prix: req.body.prix,
                 description: req.body.description,
-                bar_id: req.body.bar_id
+                bars_id: req.body.bars_id
             };
 
             const createdBiere = await Biere.create(newBiere);
@@ -23,12 +23,13 @@ const biereController = {
     updateBiere: async (req, res) => {
         try {
             const { id_biere } = req.params;
+
+            const selectedBiere = await Biere.findByPk(id_biere);
             const updatedBiere = {
-                name: req.body.name,
-                type: req.body.type,
-                price: req.body.price,
-                description: req.body.description,
-                bar_id: req.body.bar_id
+                name: req.body.name ?? selectedBiere.name,
+                prix: req.body.prix ?? selectedBiere.prix,
+                degree: req.body.degree ?? selectedBiere.degree,
+                description: req.body.description ?? selectedBiere.description,
             };
 
             await Biere.update(updatedBiere, { where: { id: id_biere } });
@@ -58,7 +59,7 @@ const biereController = {
     listBieres: async (req, res) => {
         try {
             const { id_bar } = req.params;
-            const bieres = await Biere.findAll({ where: { bar_id: id_bar } });
+            const bieres = await Biere.findAll({ where: { bars_id: id_bar } });
             res.status(200).json(bieres);
         } catch (error) {
             res.status(500).json({ error: error.message });
