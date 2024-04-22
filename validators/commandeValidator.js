@@ -63,8 +63,14 @@ function updateValidationRules() {
             }
 
             Commandes.findByPk(parseInt(req.params.id_commande))
-                .then(() => {
-                    next();
+                .then((commande) => {
+
+                    if(commande.status === "terminé"){
+                        return res.status(409).json({message: "Impossible de modifier la commande, elle est déjà terminée"});
+                    } else {
+                        next()
+                    }
+
                 })
                 .catch((err) =>
                     res
