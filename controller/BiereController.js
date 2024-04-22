@@ -1,83 +1,83 @@
-const Biere = require("../models/biere");
+const Biere = require("../models/Biere");
 
 const biereController = {
-    // Créer une nouvelle bière
+    // Create a new beer
     createBiere: async (req, res) => {
         try {
-            const biere = await Biere.create(req.body);
-            res.status(201).json(biere);
+            const newBiere = {
+                name: req.body.name,
+                type: req.body.type,
+                price: req.body.price,
+                description: req.body.description,
+                bar_id: req.body.bar_id
+            };
+
+            const createdBiere = await Biere.create(newBiere);
+            res.status(201).json(createdBiere);
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Modifier une bière existante
+    // Update an existing beer
     updateBiere: async (req, res) => {
         try {
             const { id_biere } = req.params;
-            await Biere.update(req.body, {
-                where: {
-                    id: id_biere
-                }
-            });
-            res.status(200).json({
-                message: "Bière mise à jour"
-            });
+            const updatedBiere = {
+                name: req.body.name,
+                type: req.body.type,
+                price: req.body.price,
+                description: req.body.description,
+                bar_id: req.body.bar_id
+            };
+
+            await Biere.update(updatedBiere, { where: { id: id_biere } });
+            res.status(200).json({ message: "Beer updated successfully" });
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Supprimer une bière
+    // Delete a beer
     deleteBiere: async (req, res) => {
         try {
             const { id_biere } = req.params;
-            await Biere.destroy({
-                where: {
-                    id: id_biere
-                }
-            });
-            res.status(200).json({
-                message: "Bière supprimée"
-            });
+            const deletedRows = await Biere.destroy({ where: { id: id_biere } });
+
+            if (deletedRows === 0) {
+                return res.status(404).json({ error: "Beer not found" });
+            }
+
+            res.status(200).json({ message: "Beer deleted successfully" });
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Liste des bières d'un bar
+    // List all beers from a specific bar
     listBieres: async (req, res) => {
         try {
             const { id_bar } = req.params;
-            const bieres = await Biere.findAll({
-                where: {
-                    bars_id: id_bar
-                }
-            });
+            const bieres = await Biere.findAll({ where: { bar_id: id_bar } });
             res.status(200).json(bieres);
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Détail d'une bière
+    // Get details of a specific beer
     getBiere: async (req, res) => {
         try {
             const { id_biere } = req.params;
             const biere = await Biere.findByPk(id_biere);
+
+            if (!biere) {
+                return res.status(404).json({ error: "Beer not found" });
+            }
+
             res.status(200).json(biere);
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     }
 };

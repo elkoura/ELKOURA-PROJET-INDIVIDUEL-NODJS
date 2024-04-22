@@ -17,14 +17,14 @@ const Commande = db.define("commande", {
         allowNull: false,
         references: {
             model: "bars"
-        },
-        onDelete: "cascade"
+        }
+        // onDelete: "cascade"
     },
     date: {
         type: sequelize.DATE,
         validate: {
-        isDate: true,        
-    }
+            isDate: true
+        }
     },
     status: {
         type: sequelize.STRING

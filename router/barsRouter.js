@@ -1,5 +1,4 @@
 const express = require("express");
-
 const router = express.Router();
 const controller = require("../controller/barsController");
 const { validateBar, validateIdParam, updateValidateBar } = require("../validators/barValidator");
