@@ -27,6 +27,8 @@
 Création d'une API pour un site de bars qui permet de gérer les bars, les biere et les commandes des clients.  
 Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
+Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-team?invite_code=fa464ca04af6e5769fedc21889a12056`
+
 ## Schéma de base de donnée
 
 ### Bars
