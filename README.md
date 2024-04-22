@@ -200,7 +200,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 -   [x] Le prix d'une commande doit être positif
 
 -   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
--   [] Quand je supprime une biere, je supprime toutes les commandes associées et les biere commandes associées
+-   [x] Quand je supprime une biere, je supprime toutes les commandes associées et les biere commandes associées
 -   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
 
 ## BONUS 1
