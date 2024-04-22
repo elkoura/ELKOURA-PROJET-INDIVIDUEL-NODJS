@@ -3,10 +3,10 @@ const Bieres = require("../models/Bieres");
 
 const validateBiere = () => {
     return [
-        body("name").notEmpty().isString().withMessage("Name must be a string"),
-        body("description").notEmpty().isString().withMessage("Address must be a string"),
-        body("degree").notEmpty().isString().withMessage("Telephone must be a string"),
-        body("prix").notEmpty().isString().isEmail().withMessage("Invalid email format"),
+        body("name").notEmpty().isString().withMessage("Name doit etre un chaine de caractere"),
+        body("description").notEmpty().isString().withMessage("description doit etre un chaine de caractere"),
+        body("degree").notEmpty().isFloat({gt: 0}).withMessage("degree doit etre positif"),
+        body("prix").notEmpty().isFloat({gt: 0}).withMessage("prix doit etre positif"),
 
         function (req, res, next) {
             const errors = validationResult(req);
