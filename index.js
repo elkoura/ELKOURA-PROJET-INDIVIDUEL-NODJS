@@ -33,6 +33,6 @@ app.listen(process.env.SERVER_PORT, () => {
 });
 
 app.use("/bars", barsRouter);
-app.use("/bieres", BiereRouter)
+app.use("/bieres", BiereRouter);
 app.use("/commande", CommandeRouter);
 app.use("/bierecommande", BiereCommandesRouter);

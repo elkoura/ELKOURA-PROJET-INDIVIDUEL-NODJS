@@ -36,4 +36,5 @@ Commande.hasMany(BiereCommande, {
     onDelete: "cascade"
 });
 
+
 module.exports = Commande;
