@@ -85,8 +85,28 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere_commande
 
-- POST /commandes/:id/biere/:id => Ajouter une biere à une commande
-- DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
+- [x] POST /commandes/:id/biere/:id => Ajouter une biere à une commande
+- [x] DELETE /commandes/:id/biere/:id => Supprimer une biere d'une commande
+
+## Liste des contraintes sur mes routes et models :
+
+### Routes
+
+- [] Tous les champs obligatoires doivent être renseignés (?)
+- [] Le status d'une commande doit être "en cours" ou "terminée"
+- [] Le status d'une commande ne peut pas être modifié si elle contient des biere
+- [] une commande ne peut pas être modifié si elle est terminée
+- [] La date d'une commande ne peut pas être supérieure à la date du jour
+
+### Models
+
+- [] Le nom d'un bars doit être unique
+- [] Le prix d'une biere doit être positif
+- [] Le prix d'une commande doit être positif
+
+- [] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
+- [] Quand je supprime une biere, je supprime toutes les commandes associées
+- [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
 
 ## Liste des endpoints avancés
 
@@ -136,19 +156,6 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 - faker(Optionnel pour générer des fausses données)
 - jest(Optionnel pour les tests)
 - supertest(Optionnel pour les tests)
-
-## Liste des contraintes sur mes routes et models :
-
-- Tous les champs obligatoires doivent être renseignés
-- Le nom d'un bars doit être unique
-- Le prix d'une biere doit être positif
-- Le prix d'une commande doit être positif
-- Le status d'une commande doit être "en cours" ou "terminée"
-- une commande ne peut pas être modifié si elle est terminée
-- La date d'une commande ne peut pas être supérieure à la date du jour
-- Quand je supprime un bars, je supprime toutes les biere et les commandes associées
-- Quand je supprime une biere, je supprime toutes les commandes associées
-- Quand je supprime une commande, je supprime toutes les biere_commande associées
 
 ## BONUS 1
 
