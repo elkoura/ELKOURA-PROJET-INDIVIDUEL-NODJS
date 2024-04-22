@@ -26,7 +26,7 @@ const CommandeController = {
             name: req.body.name,
             prix: req.body.prix,
             bars_id: parseInt(id_bar),
-            date: req.body.status ?? new Date(),
+            date: req.body.date ?? new Date(),
             status: req.body.status ?? "en cours"
         };
 
