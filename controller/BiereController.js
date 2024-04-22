@@ -52,7 +52,7 @@ const biereController = {
             // Delete associated Commande records
             let commandeDestroyed;
             for (let biereCommande of biereCommandes) {
-                commandeDestroyed = await Commande.destroy({ where: { id: biereCommande.commande_id } });
+                commandeDestroyed += await Commande.destroy({ where: { id: biereCommande.commande_id } });
             }
 
             // Delete Biere
