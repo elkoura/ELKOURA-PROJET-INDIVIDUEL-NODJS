@@ -5,8 +5,8 @@ const validateBiere = () => {
     return [
         body("name").notEmpty().isString().withMessage("Name doit etre un chaine de caractere"),
         body("description").notEmpty().isString().withMessage("description doit etre un chaine de caractere"),
-        body("degree").notEmpty().isFloat({gt: 0}).withMessage("degree doit etre positif"),
-        body("prix").notEmpty().isFloat({gt: 0}).withMessage("prix doit etre positif"),
+        body("degree").notEmpty().isFloat({ gt: 0 }).withMessage("degree doit etre positif"),
+        body("prix").notEmpty().isFloat({ gt: 0 }).withMessage("prix doit etre positif"),
 
         function (req, res, next) {
             const errors = validationResult(req);

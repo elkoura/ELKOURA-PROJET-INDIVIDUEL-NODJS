@@ -61,7 +61,9 @@ const biereController = {
             if (deletedBeers === 0) {
                 return res.status(404).json({ error: "Beer not found" });
             }
-            res.status(200).json({ message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) ` });
+            res.status(200).json({
+                message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) `
+            });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

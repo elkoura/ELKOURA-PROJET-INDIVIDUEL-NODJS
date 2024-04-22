@@ -27,7 +27,7 @@ const CommandeController = {
         }
 
         Commande.findAll({
-            where: whereOptions,
+            where: whereOptions
         })
             .then((commandes) => {
                 const commandeArray = commandes.map((commande) => commande.dataValues);
