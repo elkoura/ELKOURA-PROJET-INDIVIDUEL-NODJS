@@ -57,7 +57,13 @@ controller.delete = async (req, res) => {
 
 controller.getAll = async (req, res) => {
     try {
-        const bars = await Bars.findAll();
+        const whereOptions = {};
+        if (req.query.adresse) {
+            whereOptions.adresse = req.query.adresse;
+        }
+
+        const bars = await Bars.findAll({ where: whereOptions });
+
         res.json(bars);
     } catch (err) {
         res.status(500).json({ error: err.message });
