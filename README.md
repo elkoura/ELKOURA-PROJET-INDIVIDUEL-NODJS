@@ -29,6 +29,27 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-team?invite_code=fa464ca04af6e5769fedc21889a12056`
 
+
+Install les dependences: 
+
+```bash
+npm i 
+```
+
+Les dependances:
+-   express
+-   body-parser
+-   sequelize
+-   sqlite3
+-   nodemon
+-   express-validator
+-   dotenv
+-   faker(Optionnel pour générer des fausses données)
+-   jest(Optionnel pour les tests)
+-   supertest(Optionnel pour les tests)
+
+---
+
 ## Schéma de base de donnée
 
 ### Bars
@@ -119,13 +140,12 @@ Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-t
 
 ---
 
-## Liste des contraintes sur mes routes et models :
+## Liste des contraintes sur mes:
 
 ### Routes
 
 -   [x] Tous les champs obligatoires doivent être renseignés (?)
 -   [x] Le status d'une commande doit être "en cours" ou "terminée"
--   [x] Le status d'une commande ne peut pas être modifié si elle contient des biere
 -   [x] une commande ne peut pas être modifié si elle est terminée
 -   [x] La date d'une commande ne peut pas être supérieure à la date du jour
 
@@ -134,10 +154,11 @@ Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-t
 -   [x] Le nom d'un bars doit être unique
 -   [x] Le prix d'une biere doit être positif
 -   [x] Le prix d'une commande doit être positif
-
 -   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
--   [x] Quand je supprime une biere, je supprime toutes les commandes associées + biere_commande aussi
+-   [x] Quand je supprime une biere, je supprime toutes les commandes associées et les biere commandes associées
 -   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
+
+---
 
 ## Liste des endpoints avancés
 
@@ -147,6 +168,7 @@ Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-t
 -   GET /bars?name=example => Liste des bars dont le nom contient "example"
 -   GET /bars/:id_bar/degree => Degré d'alcool moyen des bières d'un bars
 
+---
 ## Liste des fichiers recommandés
 
 -   models/
@@ -175,35 +197,7 @@ Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-t
         index.js  
         package.json
 
-## Liste des modules à installer (recommendation)
-
--   express
--   body-parser
--   sequelize
--   sqlite3
--   nodemon
--   express-validator
--   dotenv
--   faker(Optionnel pour générer des fausses données)
--   jest(Optionnel pour les tests)
--   supertest(Optionnel pour les tests)
-
-## Liste des contraintes sur mes routes et models :
-
--   [x] Tous les champs obligatoires doivent être renseignés (?)
--   [x] Le status d'une commande doit être "en cours" ou "terminée"
--   [x] une commande ne peut pas être modifié si elle est terminée
--   [x] La date d'une commande ne peut pas être supérieure à la date du jour
-
-### Models
-
--   [x] Le nom d'un bars doit être unique
--   [x] Le prix d'une biere doit être positif
--   [x] Le prix d'une commande doit être positif
-
--   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
--   [x] Quand je supprime une biere, je supprime toutes les commandes associées et les biere commandes associées
--   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
+---
 
 ## BONUS 1
 
