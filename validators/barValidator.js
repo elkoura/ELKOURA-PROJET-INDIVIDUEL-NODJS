@@ -14,8 +14,6 @@ const validateBar = () => {
       if (!errors.isEmpty()) {
         return res.send({ errors: errors.array() });
       }
-      console.log(req.method);
-
       next();
     },
   ];
