@@ -191,7 +191,7 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 -   [x] Tous les champs obligatoires doivent être renseignés (?)
 -   [x] Le status d'une commande doit être "en cours" ou "terminée"
 -   [x] une commande ne peut pas être modifié si elle est terminée
--   [] La date d'une commande ne peut pas être supérieure à la date du jour
+-   [x] La date d'une commande ne peut pas être supérieure à la date du jour
 
 ### Models
 
