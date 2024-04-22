@@ -123,20 +123,20 @@ Pour utiliser un config de Postman deja fait: `https://app.getpostman.com/join-t
 
 ### Routes
 
--   [] Tous les champs obligatoires doivent être renseignés (?)
--   [] Le status d'une commande doit être "en cours" ou "terminée"
--   [] Le status d'une commande ne peut pas être modifié si elle contient des biere
+-   [x] Tous les champs obligatoires doivent être renseignés (?)
+-   [x] Le status d'une commande doit être "en cours" ou "terminée"
+-   [x] Le status d'une commande ne peut pas être modifié si elle contient des biere
 -   [x] une commande ne peut pas être modifié si elle est terminée
--   [] La date d'une commande ne peut pas être supérieure à la date du jour
+-   [x] La date d'une commande ne peut pas être supérieure à la date du jour
 
 ### Models
 
--   [] Le nom d'un bars doit être unique
--   [] Le prix d'une biere doit être positif
--   [] Le prix d'une commande doit être positif
+-   [x] Le nom d'un bars doit être unique
+-   [x] Le prix d'une biere doit être positif
+-   [x] Le prix d'une commande doit être positif
 
 -   [x] Quand je supprime un bars, je supprime toutes les biere et les commandes associées
--   [] Quand je supprime une biere, je supprime toutes les commandes associées + biere_commande aussi
+-   [x] Quand je supprime une biere, je supprime toutes les commandes associées + biere_commande aussi
 -   [x] Quand je supprime une commande, je supprime toutes les biere_commande associées
 
 ## Liste des endpoints avancés
