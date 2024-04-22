@@ -1,29 +1,36 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
+const BiereCommande = require("./biereCommandes");
 
-const Commande = db.define('commande', {
-
-        id_commande: {
-                type: sequelize.INTEGER, primaryKey: true, autoIncrement: true
+const Commande = db.define("commande", {
+    name: {
+        type: sequelize.STRING
+    },
+    prix: {
+        type: sequelize.FLOAT,
+        validate: {
+            min: 0
+        }
+    },
+    bars_id: {
+        type: sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: "bars"
         },
-        name: {
-                type: sequelize.STRING
-        },
-        prix: {
-                type: sequelize.FLOAT, validate: { min: 0 },
-        },
-        bars_id: {
-                type: sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                        model: 'bars',
-                },
-        },
-        date: {
-                type: sequelize.DATE
-        },
-        status: {
-                type: sequelize.STRING//, Sequelize.ENUM,values: ['en cours','terminé']
-        }//2 vals: (en cours, terminé)
+        onDelete: "cascade"
+    },
+    date: {
+        type: sequelize.DATE
+    },
+    status: {
+        type: sequelize.STRING
+    } //2 vals: (en cours, terminé)
 });
+
+Commande.hasMany(BiereCommande, {
+    foreignKey: "commande_id",
+    onDelete: "cascade"
+});
+
 module.exports = Commande;

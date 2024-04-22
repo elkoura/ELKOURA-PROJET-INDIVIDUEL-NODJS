@@ -1,0 +1,31 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.configPath": "",
+    "prettier.requireConfig": true,
+    "prettier.semi": true,
+    "eslint.experimental.useFlatConfig": false,
+    "editor.formatOnPaste": true,
+    "prettier.useEditorConfig": false,
+    "eslint.run": "onSave",
+    "eslint.format.enable": true,
+    "eslint.codeActionsOnSave.rules": null,
+    "eslint.codeActionsOnSave.mode": "all",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[javascript]": {
+        "editor.maxTokenizationLineLength": 2500,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.useTabs": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "eslint.options": {
+        "configFile": "/path/to/your/.eslintrc.json"
+    }
+}
