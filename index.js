@@ -32,6 +32,5 @@ app.listen(process.env.SERVER_PORT, () => {
 });
 
 app.use("/bars", barsRouter);
-
 app.use("/commande", CommandeRouter);
 app.use("/bierecommande", BiereCommandesRouter);
