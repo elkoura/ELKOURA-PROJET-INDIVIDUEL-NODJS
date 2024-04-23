@@ -1,6 +1,6 @@
 const sequelize = require("sequelize");
 const db = require("../config/database");
-const BiereCommande = require("./biereCommandes");
+const BiereCommande = require("./BiereCommandes");
 
 const Commande = db.define("commande", {
     name: {
@@ -21,10 +21,7 @@ const Commande = db.define("commande", {
         // onDelete: "cascade"
     },
     date: {
-        type: sequelize.DATE,
-        validate: {
-            isDate: true
-        }
+        type: sequelize.STRING
     },
     status: {
         type: sequelize.STRING
@@ -35,6 +32,5 @@ Commande.hasMany(BiereCommande, {
     foreignKey: "commande_id",
     onDelete: "cascade"
 });
-
 
 module.exports = Commande;

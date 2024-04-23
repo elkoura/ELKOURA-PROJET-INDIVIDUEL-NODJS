@@ -1,5 +1,6 @@
 const controller = {};
 const Bars = require("../models/Bars");
+const Biere = require("../models/Bieres");
 
 controller.store = async (req, res) => {
     try {
@@ -57,7 +58,16 @@ controller.delete = async (req, res) => {
 
 controller.getAll = async (req, res) => {
     try {
-        const bars = await Bars.findAll();
+        const whereOptions = {};
+        if (req.query.adresse) {
+            whereOptions.adresse = req.query.adresse;
+        }
+        if (req.query.name) {
+            whereOptions.name = req.query.name;
+        }
+
+        const bars = await Bars.findAll({ where: whereOptions });
+
         res.json(bars);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -73,6 +83,21 @@ controller.getOne = async (req, res) => {
             return res.status(404).json({ error: "Bar not found" });
         }
         res.json(bar);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+controller.getAverageDegree = async (req, res) => {
+    try {
+        const barId = req.params.id_bar;
+        const beersQuery = await Biere.findAll({ where: { bars_id: barId } });
+        const beers = beersQuery.map(beers => beers.dataValues)
+        const averageDegree = beers.reduce((accum, curr) => accum + curr.degree, 0) / beers.length
+
+        res.json(averageDegree);
+
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

@@ -1,4 +1,4 @@
-const BiereCommande = require("../models/biereCommandes");
+const BiereCommande = require("../models/BiereCommandes");
 const Biere = require("../models/Bieres");
 const Commande = require("../models/Commandes");
 
@@ -52,7 +52,7 @@ const biereController = {
             // Delete associated Commande records
             let commandeDestroyed;
             for (let biereCommande of biereCommandes) {
-                commandeDestroyed = await Commande.destroy({ where: { id: biereCommande.commande_id } });
+                commandeDestroyed += await Commande.destroy({ where: { id: biereCommande.commande_id } });
             }
 
             // Delete Biere
@@ -61,7 +61,9 @@ const biereController = {
             if (deletedBeers === 0) {
                 return res.status(404).json({ error: "Beer not found" });
             }
-            res.status(200).json({ message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) ` });
+            res.status(200).json({
+                message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) `
+            });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

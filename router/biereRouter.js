@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const biereController = require("../controller/BiereController");
-const { validateCreation, validateIdBiere } = require("../validators/biereValidator");
 
 router.post("/:id_bar/biere", validateCreation(), biereController.createBiere);
 router.put("/biere/:id_biere", validateIdBiere(), biereController.updateBiere);
