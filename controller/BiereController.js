@@ -1,4 +1,4 @@
-const BiereCommande = require("../models/biereCommandes");
+const BiereCommande = require("../models/BiereCommandes");
 const Biere = require("../models/Bieres");
 const Commande = require("../models/Commandes");
 

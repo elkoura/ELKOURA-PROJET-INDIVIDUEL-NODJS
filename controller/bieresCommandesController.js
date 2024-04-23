@@ -1,4 +1,4 @@
-const BiereCommandes = require("../models/biereCommandes");
+const BiereCommandes = require("../models/BiereCommandes");
 
 const BiereCommandesController = {
     getAll: async (req, res) => {

@@ -61,6 +61,9 @@ controller.getAll = async (req, res) => {
         if (req.query.adresse) {
             whereOptions.adresse = req.query.adresse;
         }
+        if (req.query.name) {
+            whereOptions.name = req.query.name;
+        }
 
         const bars = await Bars.findAll({ where: whereOptions });
 
