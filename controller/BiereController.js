@@ -28,7 +28,10 @@ const biereController = {
 
             const selectedBiere = await Biere.findByPk(id_biere);
 
-            if (!selectedBiere) return res.status(404).json({ err, message: `La biere avec l'id: '${req.params.id_bar}' n'existe pas.` })
+            if (!selectedBiere)
+                return res
+                    .status(404)
+                    .json({ err, message: `La biere avec l'id: '${req.params.id_bar}' n'existe pas.` });
 
             const updatedBeer = await selectedBiere.update(req.body);
 

@@ -19,9 +19,7 @@ const updateValidateBar = [
     body("adresse").optional({ nullable: true }),
     body("tel").optional({ nullable: true }),
     body("email").optional({ nullable: true }).isEmail().withMessage("Invalid email format"),
-    body("description").optional({ nullable: true }),
+    body("description").optional({ nullable: true })
 ];
-
-
 
 module.exports = { validateCreateBar, validateIdParam, updateValidateBar };

@@ -59,14 +59,22 @@ const CommandeController = {
         const { id_commande } = req.params;
 
         Commande.findByPk(id_commande)
-            .then((commandeModel) => {
-                const { name, prix, status } = req.body;
-                const model = commandeModel.dataValues;
-                const commande = {
-                    name: name ?? model.name,
-                    prix: prix ?? model.prix,
-                    status: status ?? model.status
-                };
+            .then((commande) => {
+                if (!commande)
+                    return res.json({
+                        err,
+                        message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.`
+                    });
+
+                if (commande.status === "terminé") {
+                    return res
+                        .status(409)
+                        .json({ message: "Impossible de modifier la commande, elle est déjà terminée" });
+                }
+
+                const values = req.body;
+
+                commande.update(values);
 
                 return Commande.update(commande, { where: { id: id_commande } });
             })
