@@ -8,5 +8,6 @@ router.put("/:id_bar", updateValidateBar(), controller.update);
 router.delete("/:id_bar", validateIdParam(), controller.delete);
 router.get("/", controller.getAll);
 router.get("/:id_bar", validateIdParam(), controller.getOne);
+router.get("/:id_bar/degree", validateIdParam(), controller.getAverageDegree);
 
 module.exports = router;

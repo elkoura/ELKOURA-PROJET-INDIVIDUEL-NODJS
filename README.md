@@ -165,7 +165,7 @@ Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payloa
 -   [x] GET /bars/:id_bar/commandes?date=2021-01-01 => Liste des commandes d'un bars à une date donnée
 -   [x] GET /bars/:id_bar/commandes?prix_min=10&prix_max=20 => Liste des commandes d'un bars avec un prix compris entre 10 et 20
 -   [x] GET /bars?ville=Paris => Liste des bars d'une ville donnée
--   GET /bars?name=example => Liste des bars dont le nom contient "example"
+-   [x] GET /bars?name=example => Liste des bars dont le nom contient "example"
 -   GET /bars/:id_bar/degree => Degré d'alcool moyen des bières d'un bars
 
 ---
