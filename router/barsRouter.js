@@ -14,8 +14,9 @@ router.get("/:id_bar", validateIdParam(), controller.getOne);
 router.get("/:id_bar/degree", validateIdParam(), controller.getAverageDegree);
 router.get("/:id_bar/biere", validateIdParam(), controller.getBeersWithQueryParams);
 
+router.get("/:id_bar/commandes", validateIdParam(), controller.orderQuery);
 
 
-router.get("/:id_bar/biere", validateIdParam(), controller.getBeers);
 
 module.exports = router;
+
