@@ -1,6 +1,9 @@
 const controller = {};
+const { Op, where } = require("sequelize");
 const Bars = require("../models/Bars");
 const Biere = require("../models/Bieres");
+const BiereCommande = require("../models/BiereCommandes");
+const Commande = require("../models/Commandes");
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -96,12 +99,33 @@ controller.getAverageDegree = async (req, res) => {
     try {
         const barId = req.params.id_bar;
         const beersQuery = await Biere.findAll({ where: { bars_id: barId } });
-        const beers = beersQuery.map(beers => beers.dataValues)
-        const averageDegree = beers.reduce((accum, curr) => accum + curr.degree, 0) / beers.length
+        const beers = beersQuery.map((beers) => beers.dataValues);
+        const degreeReducer = beers.reduce((accum, curr) => accum + curr.degree, 0);
+        const averageDegree = degreeReducer / beers.length;
 
-        res.json(averageDegree);
+        let averageDegreeWithDate;
+        if (req.query.date) {
+            const commandeQuery = await Commande.findAll({
+                where: {
+                    bars_id: barId,
+                    date: req.query.date
+                },
+                include: Biere
+            });
 
+            let totalDegree = 0;
+            let totalCount = 0;
 
+            commandeQuery.forEach((commande) => {
+                const sum = commande.bieres?.reduce((accum, biere) => accum + biere.degree, 0);
+                totalDegree += sum;
+                totalCount += commande.bieres.length;
+            });
+
+            averageDegreeWithDate = totalDegree / totalCount;
+        }
+
+        res.json(averageDegreeWithDate ?? averageDegree);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -217,5 +241,99 @@ controller.getFilteredOrders = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+controller.getBeersWithQueryParams = async (req, res) => {
+    try {
+        const barId = req.params.id_bar;
+        const whereOptions = { bars_id: barId };
+        let order = [];
+        let limit = null;
+        let offset = null;
+
+        if (req.query.sort) {
+            order.push(["name", req.query.sort]);
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+        }
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+        }
+
+        if (req.query.degree_min || req.query.degree_max) {
+            const { degree_min, degree_max } = req.query;
+            whereOptions.degree = {};
+            if (degree_min) {
+                whereOptions.degree = { [Op.gte]: parseFloat(degree_min) };
+            }
+
+            if (degree_max) {
+                whereOptions.degree = {
+                    ...whereOptions.degree,
+                    [Op.lte]: parseFloat(degree_max)
+                };
+            }
+        }
+
+        if (req.query.prix_min || req.query.prix_max) {
+            const { prix_min, prix_max } = req.query;
+            whereOptions.prix = {};
+            if (prix_min) {
+                whereOptions.prix = { [Op.gte]: parseFloat(prix_min) };
+            }
+
+            if (prix_max) {
+                whereOptions.prix = {
+                    ...whereOptions.prix,
+                    [Op.lte]: parseFloat(prix_max)
+                };
+            }
+        }
+
+        const beers = await Biere.findAll({
+            where: whereOptions,
+            order: order,
+            limit: limit,
+            offset: offset
+        });
+
+        res.json(beers);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+controller.orderQuery = async (req, res) => {
+
+    const barId = req.params.id_bar;
+    const whereOptions = { bars_id: barId };
+
+    if (req.query.date) {
+        whereOptions.date = req.query.date;
+    }
+
+    if (req.query.prix_min || req.query.prix_max) {
+        whereOptions.prix = {};
+        if (req.query.prix_min) {
+            whereOptions.prix = { [Op.gte]: parseFloat(req.query.prix_min) };
+        }
+        if (req.query.prix_max) {
+            whereOptions.prix = { ...whereOptions.prix, [Op.lte]: parseFloat(req.query.prix_max) };
+        }
+    }
+
+    if (req.query.status) {
+        whereOptions.status = req.query.status;
+    }
+
+    if (req.query.name) {
+        whereOptions.name = { [Op.like]: `%${req.query.name}%` };
+    }
+
+    const commandes = await Commande.findAll({ where: whereOptions });
+
+    res.json(commandes);
+}
+
 
 module.exports = controller;
