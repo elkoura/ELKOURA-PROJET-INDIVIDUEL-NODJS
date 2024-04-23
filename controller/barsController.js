@@ -2,6 +2,8 @@ const controller = {};
 const { Op, where } = require("sequelize");
 const Bars = require("../models/Bars");
 const Biere = require("../models/Bieres");
+const BiereCommande = require("../models/BiereCommandes");
+const Commande = require("../models/Commandes");
 
 controller.store = async (req, res) => {
     try {
@@ -93,28 +95,45 @@ controller.getAverageDegree = async (req, res) => {
     try {
         const barId = req.params.id_bar;
         const beersQuery = await Biere.findAll({ where: { bars_id: barId } });
-        const beers = beersQuery.map(beers => beers.dataValues)
-        const averageDegree = beers.reduce((accum, curr) => accum + curr.degree, 0) / beers.length
+        const beers = beersQuery.map((beers) => beers.dataValues);
+        const degreeReducer = beers.reduce((accum, curr) => accum + curr.degree, 0);
+        const averageDegree = degreeReducer / beers.length;
 
-        res.json(averageDegree);
+        let averageDegreeWithDate;
+        if (req.query.date) {
+            const commandeQuery = await Commande.findAll({
+                where: {
+                    bars_id: barId,
+                    date: req.query.date
+                },
+                include: Biere
+            });
 
+            let totalDegree = 0;
+            let totalCount = 0;
 
+            commandeQuery.forEach((commande) => {
+                const sum = commande.bieres?.reduce((accum, biere) => accum + biere.degree, 0);
+                totalDegree += sum;
+                totalCount += commande.bieres.length;
+            });
+
+            averageDegreeWithDate = totalDegree / totalCount;
+        }
+
+        res.json(averageDegreeWithDate ?? averageDegree);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
-
-controller.getBeers = async (req, res) => {
+controller.getBeersWithQueryParams = async (req, res) => {
     try {
         const barId = req.params.id_bar;
         const whereOptions = { bars_id: barId };
         let order = [];
         let limit = null;
         let offset = null;
-
-        let prixMin = null;
-        let prixMax = null;
 
         if (req.query.sort) {
             order.push(["name", req.query.sort]);
@@ -156,12 +175,11 @@ controller.getBeers = async (req, res) => {
             }
         }
 
-        console.log(whereOptions)
         const beers = await Biere.findAll({
             where: whereOptions,
-            // order: order,
-            // limit: limit,
-            // offset: offset,
+            order: order,
+            limit: limit,
+            offset: offset
         });
 
         res.json(beers);

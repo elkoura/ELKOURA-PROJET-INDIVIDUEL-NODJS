@@ -21,18 +21,24 @@ app.use(
 app.use(bodyParser.json());
 
 const initDB = () => {
-    db.sync().catch((err) => {
-        console.log(err);
-    });
+    require("./models/associations");
+    return db
+        .sync()
+        .then(() => {
+            /*no op*/
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
-initDB();
+initDB().then(() => {
+    app.listen(process.env.SERVER_PORT, () => {
+        console.log("App running on port " + process.env.SERVER_PORT);
+    });
 
-app.listen(process.env.SERVER_PORT, () => {
-    console.log("App running on port " + process.env.SERVER_PORT);
+    app.use("/bars", barsRouter);
+    app.use("/bieres", BiereRouter);
+    app.use("/commande", CommandeRouter);
+    app.use("/bierecommande", BiereCommandesRouter);
 });
-
-app.use("/bars", barsRouter);
-app.use("/bieres", BiereRouter);
-app.use("/commande", CommandeRouter);
-app.use("/bierecommande", BiereCommandesRouter);

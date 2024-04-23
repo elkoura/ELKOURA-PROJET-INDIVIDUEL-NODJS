@@ -28,9 +28,4 @@ const Commande = db.define("commande", {
     } //2 vals: (en cours, terminé)
 });
 
-Commande.hasMany(BiereCommande, {
-    foreignKey: "commande_id",
-    onDelete: "cascade"
-});
-
 module.exports = Commande;

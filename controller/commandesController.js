@@ -2,9 +2,6 @@ const { Op } = require("sequelize");
 const Commande = require("../models/Commandes"); //pour utiliser la classe product
 const { default: jsPDF } = require("jspdf");
 
-
-
-
 const CommandeController = {
     index: (req, res) => {
         const { id_bar } = req.params;
@@ -109,7 +106,7 @@ const CommandeController = {
                 pdfDoc.text(items, 10, 10);
                 res.setHeader("Content-Type", "application/pdf");
                 res.setHeader("Content-Disposition", "attachment; filename=commande.pdf");
-                res.send(Buffer.from(pdfDoc.output('arraybuffer'))); // Send the PDF data as a response
+                res.send(Buffer.from(pdfDoc.output("arraybuffer"))); // Send the PDF data as a response
             })
             .catch((err) => res.status(500).json({ error: err.message }));
     }
