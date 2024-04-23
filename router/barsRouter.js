@@ -10,4 +10,8 @@ router.get("/", controller.getAll);
 router.get("/:id_bar", validateIdParam(), controller.getOne);
 router.get("/:id_bar/degree", validateIdParam(), controller.getAverageDegree);
 
+
+
+router.get("/:id_bar/biere", validateIdParam(), controller.getBeers);
+
 module.exports = router;

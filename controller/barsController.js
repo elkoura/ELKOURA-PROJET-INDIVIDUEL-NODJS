@@ -1,4 +1,5 @@
 const controller = {};
+const { Op, where } = require("sequelize");
 const Bars = require("../models/Bars");
 const Biere = require("../models/Bieres");
 
@@ -98,6 +99,72 @@ controller.getAverageDegree = async (req, res) => {
         res.json(averageDegree);
 
 
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+controller.getBeers = async (req, res) => {
+    try {
+        const barId = req.params.id_bar;
+        const whereOptions = { bars_id: barId };
+        let order = [];
+        let limit = null;
+        let offset = null;
+
+        let prixMin = null;
+        let prixMax = null;
+
+        if (req.query.sort) {
+            order.push(["name", req.query.sort]);
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+        }
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+        }
+
+        if (req.query.degree_min || req.query.degree_max) {
+            const { degree_min, degree_max } = req.query;
+            whereOptions.degree = {};
+            if (degree_min) {
+                whereOptions.degree = { [Op.gte]: parseFloat(degree_min) };
+            }
+
+            if (degree_max) {
+                whereOptions.degree = {
+                    ...whereOptions.degree,
+                    [Op.lte]: parseFloat(degree_max)
+                };
+            }
+        }
+
+        if (req.query.prix_min || req.query.prix_max) {
+            const { prix_min, prix_max } = req.query;
+            whereOptions.prix = {};
+            if (prix_min) {
+                whereOptions.prix = { [Op.gte]: parseFloat(prix_min) };
+            }
+
+            if (prix_max) {
+                whereOptions.prix = {
+                    ...whereOptions.prix,
+                    [Op.lte]: parseFloat(prix_max)
+                };
+            }
+        }
+
+        console.log(whereOptions)
+        const beers = await Biere.findAll({
+            where: whereOptions,
+            // order: order,
+            // limit: limit,
+            // offset: offset,
+        });
+
+        res.json(beers);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
