@@ -39,6 +39,6 @@ initDB().then(() => {
 
     app.use("/bars", barsRouter);
     app.use("/bieres", BiereRouter);
-    app.use("/commande", CommandeRouter);
-    app.use("/bierecommande", BiereCommandesRouter);
+    app.use("/commandes", CommandeRouter);
+    app.use("/bierecommandes", BiereCommandesRouter);
 });
