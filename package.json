@@ -16,6 +16,7 @@
         "dotenv": "^16.4.5",
         "express": "^4.19.2",
         "express-validator": "^7.0.1",
+        "jspdf": "^2.5.1",
         "sequelize": "^6.37.3",
         "sqlite3": "^5.1.7"
     },

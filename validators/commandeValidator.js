@@ -90,7 +90,7 @@ function updateValidationRules() {
     ];
 }
 
-function deleteValidation() {
+function commandIdValidation() {
     return [
         function (req, res, next) {
             Commandes.findByPk(parseInt(req.params.id_commande))
@@ -107,4 +107,4 @@ function deleteValidation() {
     ];
 }
 
-module.exports = { createValidationRules, updateValidationRules, deleteValidation };
+module.exports = { createValidationRules, updateValidationRules, commandIdValidation };
