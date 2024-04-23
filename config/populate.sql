@@ -13,7 +13,16 @@ INSERT INTO bieres (id, name, description, degree, prix, bars_id, createdAt, upd
 (3, 'Biere 3', 'Description 3', 5.5, 14.0, 3, datetime('now'), datetime('now')),
 (4, 'Biere 4', 'Description 4', 6.0, 16.0, 4, datetime('now'), datetime('now')),
 (5, 'Biere 5', 'Description 5', 6.5, 18.0, 5, datetime('now'), datetime('now'));
-
+(null, 'Biere A', 'Description A', 4.5, 10.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere B', 'Description B', 5.0, 12.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere C', 'Description C', 5.5, 14.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere D', 'Description D', 6.0, 16.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere E', 'Description E', 6.5, 18.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere F', 'Description F', 7.0, 20.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere G', 'Description G', 7.5, 22.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere H', 'Description H', 8.0, 24.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere I', 'Description I', 8.5, 26.0, 1, datetime('now'), datetime('now')),
+(null, 'Biere J', 'Description J', 9.0, 28.0, 1, datetime('now'), datetime('now'));
 -- Inserting data into Commandes
 INSERT INTO commandes (id, date, bars_id, createdAt, updatedAt) VALUES 
 (1, '2022-01-01', 1, datetime('now'), datetime('now')),
