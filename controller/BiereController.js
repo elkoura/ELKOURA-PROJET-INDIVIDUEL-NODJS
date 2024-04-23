@@ -27,15 +27,12 @@ const biereController = {
             const { id_biere } = req.params;
 
             const selectedBiere = await Biere.findByPk(id_biere);
-            const updatedBiere = {
-                name: req.body.name ?? selectedBiere.name,
-                prix: req.body.prix ?? selectedBiere.prix,
-                degree: req.body.degree ?? selectedBiere.degree,
-                description: req.body.description ?? selectedBiere.description
-            };
 
-            await Biere.update(updatedBiere, { where: { id: id_biere } });
-            res.status(200).json({ message: "Beer updated successfully" });
+            if (!selectedBiere) return res.status(404).json({ err, message: `La biere avec l'id: '${req.params.id_bar}' n'existe pas.` })
+
+            const updatedBeer = await selectedBiere.update(req.body);
+
+            res.status(200).json({ message: "Beer updated successfully", beer: updatedBeer });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
