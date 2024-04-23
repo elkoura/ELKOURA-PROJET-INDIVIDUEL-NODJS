@@ -9,7 +9,7 @@
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
+    "author": "Par: Elkoura, Kiki, Mickael, et Thomas",
     "license": "ISC",
     "dependencies": {
         "body-parser": "^1.20.2",
