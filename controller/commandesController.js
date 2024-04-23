@@ -7,7 +7,7 @@ const CommandeController = {
         const { id_bar } = req.params;
         const { date, prix_min, prix_max } = req.query;
 
-        let whereOptions = {
+        const whereOptions = {
             bars_id: parseInt(id_bar)
         };
 
@@ -86,6 +86,8 @@ const CommandeController = {
     details: (req, res) => {
         Commande.findByPk(req.params.id)
             .then((commande) => {
+                if (!commande) return res.status(404).json({ message: "commande non trouvée" });
+
                 res.json(commande);
             })
             .catch((err) => res.status(500).json({ error: err.message }));
@@ -93,7 +95,11 @@ const CommandeController = {
     delete: (req, res) => {
         const { id_commande } = req.params;
         Commande.destroy({ where: { id: id_commande } })
-            .then(() => {
+            .then((deletedRows) => {
+                if (deletedRows === 0) {
+                    return res.status(404).json({ message: "commande non trouvée" });
+                }
+
                 return res.json({ message: "commande:" + " " + id_commande + " supprimée" });
             })
             .catch((err) => res.status(500).json({ error: err.message }));
