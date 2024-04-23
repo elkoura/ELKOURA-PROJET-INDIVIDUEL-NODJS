@@ -2,6 +2,10 @@ const controller = {};
 const Bars = require("../models/Bars");
 const Biere = require("../models/Bieres");
 
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
+
 controller.store = async (req, res) => {
     try {
         const bar = {
@@ -99,6 +103,117 @@ controller.getAverageDegree = async (req, res) => {
 
 
     } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+//Degré d'alcool moyen des bières d'un bar avec un prix compris entre un minimum et un maximum
+controller.getAverageDegreeWithPriceRange = async (req, res) => {
+    try {
+        const { id_bar } = req.params;
+        const { prix_min, prix_max } = req.query;
+
+        const beers = await Biere.findAll({
+            where: {
+                bars_id: id_bar,
+                prix: {
+                    [Sequelize.Op.between]: [prix_min, prix_max]
+                }
+            }
+        });
+
+        const averageDegree = beers.reduce((total, next) => total + next.degree, 0) / (beers.length || 1);
+
+        res.json({ averageDegree });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+// Degré d'alcool moyen des bières des commandes d'un bar à une date donnée
+controller.getAverageDegreeByDate = async (req, res) => {
+    try {
+        const { id_bar } = req.params;
+        const { date } = req.query;
+
+        // Supposons que vous avez un modèle Commande qui peut être joint à Biere via Biere_Commande
+        const orders = await Commande.findAll({
+            where: {
+                bars_id: id_bar,
+                date
+            },
+            include: [{
+                model: Biere,
+                as: 'bieres',
+                through: { attributes: [] } // Ne pas inclure d'attributs de la table de liaison
+            }]
+        });
+
+        // Vous devez calculer la moyenne des degrés des bières pour ces commandes
+        let totalDegree = 0;
+        let totalBeers = 0;
+        orders.forEach(order => {
+            order.bieres.forEach(beer => {
+                totalDegree += beer.degree;
+                totalBeers += 1;
+            });
+        });
+
+        const averageDegree = totalDegree / (totalBeers || 1);
+
+        res.json({ averageDegree });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+//Liste des commandes d'un bar à une date donnée avec un prix compris entre deux valeurs 
+controller.getOrdersByDateAndPriceRange = async (req, res) => {
+    try {
+        const { id_bar } = req.params;
+        const { date, prix_min, prix_max } = req.query;
+
+        const orders = await Commande.findAll({
+            where: {
+                bars_id: id_bar,
+                date,
+                prix: {
+                    [Sequelize.Op.between]: [prix_min, prix_max]
+                }
+            }
+        });
+
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+controller.getFilteredOrders = async (req, res) => {
+    try {
+        // Récupération des paramètres de la requête.
+        const { id_bar } = req.params;
+        const { date, prix_min, prix_max, status, name } = req.query;
+
+        // Recherche des commandes qui correspondent aux critères de filtre spécifiés.
+        const orders = await Commande.findAll({
+            where: {
+                bars_id: id_bar,
+                date: date,
+                prix: {
+                    [Sequelize.Op.between]: [prix_min, prix_max]
+                },
+                status: status,
+                name: {
+                    [Sequelize.Op.like]: `%${name}%`
+                }
+            }
+        });
+
+        // Envoi des commandes filtrées.
+        res.json(orders);
+    } catch (err) {
+        // Gestion des erreurs.
         res.status(500).json({ error: err.message });
     }
 };
