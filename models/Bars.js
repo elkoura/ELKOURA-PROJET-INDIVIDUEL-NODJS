@@ -22,14 +22,4 @@ const Bars = db.define("bars", {
     }
 });
 
-Bars.hasMany(Commande, {
-    foreignKey: "bars_id",
-    onDelete: "cascade"
-});
-
-Bars.hasMany(Biere, {
-    foreignKey: "bars_id",
-    onDelete: "cascade"
-});
-
 module.exports = Bars;
