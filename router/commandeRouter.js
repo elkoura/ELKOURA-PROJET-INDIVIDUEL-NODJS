@@ -5,7 +5,6 @@ const commandeController = require("../controller/commandesController");
 const {
     createValidationRules,
     updateValidationRules,
-    commandIdValidation,
     validateCommandeIdParam
 } = require("../validators/commandeValidator");
 const errorValidator = require("../validators/errorValidator");
@@ -20,6 +19,6 @@ router.delete("/:id_commande", validateCommandeIdParam, commandeController.delet
 router.get("/bars/:id_bar/commandes", commandeController.index); //liste des commandes d'un bar
 
 //bonus
-router.get("/details/:id_commande", commandIdValidation(), commandeController.pdf); //renvoie un pdf de la commande
+router.get("/details/:id_commande", validateCommandeIdParam, commandeController.pdf); //renvoie un pdf de la commande
 
 module.exports = router;

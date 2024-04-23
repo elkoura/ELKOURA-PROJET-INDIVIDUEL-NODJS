@@ -1,10 +1,4 @@
-const { body, validationResult } = require("express-validator");
-
-const BiereCommandes = require("../models/BiereCommandes");
-const Bieres = require("../models/Bieres");
-const Commandes = require("../models/Commandes");
-const Bars = require("../models/Bars");
-const Commande = require("../models/Commandes");
+const { body, param } = require("express-validator");
 
 const validateCommandeIdParam = [
     param("id_commande")
