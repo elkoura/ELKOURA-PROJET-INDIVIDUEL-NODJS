@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const biereController = require("../controller/biereController");
+const biereController = require("../controller/BiereController");
 
 const { validateBiere, validateIdParam, updateValidateBiere } = require("../validators/biereValidator");
 
