@@ -16,7 +16,5 @@ router.get("/bars/:id_bar/commandes", commandeController.index); //liste des com
 
 router.delete("/:id_commande", commandIdValidation(), commandeController.delete); //supprimer une commande d'un bar
 
-
 router.get("/details/:id_commande", commandIdValidation(), commandeController.pdf); //renvoie un pdf de la commande
 module.exports = router;
-

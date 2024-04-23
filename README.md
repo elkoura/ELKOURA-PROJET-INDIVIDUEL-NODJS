@@ -202,18 +202,18 @@ Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payloa
 
 ## BONUS 1
 
-- [x] GET /bars/:id_bar/degree?prix_min=10&prix_max=20 => Degré d'alcool moyen des bières d'un bars avec un prix compris entre 10 et 20
-- [x] GET /bars/:id_bar/degree?date=2021-01-01 => Degré d'alcool moyen des bières des commandes d'un bars à une date donnée
-- [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20 => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20
-- [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20&status=terminée => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20 et terminée
-- [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20&status=terminée&name=example => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20 et terminée et dont le nom contient "example"
-- [x] GET /bars/:id_bar/biere?sort=asc => Liste des biere d'un bars triées par ordre alphabétique
-- [x] GET /bars/:id_bar/biere?sort=desc => Liste des biere d'un bars triées par ordre alphabétique inversé
-- [x] GET /bars/:id_bar/biere?sort=asc&limit=10 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10
-- [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5
-- [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5&degree_min=5&degree_max=10 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5 avec un degré d'alcool compris entre 5 et 10
-- [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5&degree_min=5&degree_max=10&prix_min=10&prix_max=20 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5 avec un degré d'alcool compris entre 5 et 10 et un prix compris entre 10 et 20 (amusez-vous bien)
-- [x] GET /commande/details/:id_commande => renvoie un pdf de la commande
+-   [x] GET /bars/:id_bar/degree?prix_min=10&prix_max=20 => Degré d'alcool moyen des bières d'un bars avec un prix compris entre 10 et 20
+-   [x] GET /bars/:id_bar/degree?date=2021-01-01 => Degré d'alcool moyen des bières des commandes d'un bars à une date donnée
+-   [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20 => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20
+-   [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20&status=terminée => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20 et terminée
+-   [x] GET /bars/:id_bar/commandes?date=2021-01-01&prix_min=10&prix_max=20&status=terminée&name=example => Liste des commandes d'un bars à une date donnée avec un prix compris entre 10 et 20 et terminée et dont le nom contient "example"
+-   [x] GET /bars/:id_bar/biere?sort=asc => Liste des biere d'un bars triées par ordre alphabétique
+-   [x] GET /bars/:id_bar/biere?sort=desc => Liste des biere d'un bars triées par ordre alphabétique inversé
+-   [x] GET /bars/:id_bar/biere?sort=asc&limit=10 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10
+-   [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5
+-   [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5&degree_min=5&degree_max=10 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5 avec un degré d'alcool compris entre 5 et 10
+-   [x] GET /bars/:id_bar/biere?sort=asc&limit=10&offset=5&degree_min=5&degree_max=10&prix_min=10&prix_max=20 => Liste des biere d'un bars triées par ordre alphabétique et limitées à 10 en commençant à l'index 5 avec un degré d'alcool compris entre 5 et 10 et un prix compris entre 10 et 20 (amusez-vous bien)
+-   [x] GET /commande/details/:id_commande => renvoie un pdf de la commande
 
 ## BONUS 2
 

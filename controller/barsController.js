@@ -7,13 +7,15 @@ const Commande = require("../models/Commandes");
 
 controller.store = async (req, res) => {
     try {
+        const { name, adresse, tel, email, description } = req.body;
         const bar = {
-            name: req.body.name,
-            adresse: req.body.adresse,
-            tel: req.body.tel,
-            email: req.body.email,
-            description: req.body.description
+            name,
+            adresse,
+            tel,
+            email,
+            description
         };
+        console.log(bar);
 
         const createdBar = await Bars.create(bar);
         res.json(createdBar);
@@ -25,15 +27,14 @@ controller.store = async (req, res) => {
 controller.update = async (req, res) => {
     try {
         const selectedBar = await Bars.findByPk(req.params.id_bar);
-        const updatedBar = {
-            name: req.body.name ?? selectedBar.name,
-            adresse: req.body.adresse ?? selectedBar.adresse,
-            tel: req.body.tel ?? selectedBar.tel,
-            email: req.body.email ?? selectedBar.email,
-            description: req.body.description ?? selectedBar.description
-        };
 
-        const result = await Bars.update(updatedBar, { where: { id: req.params.id_bar } });
+        if (!selectedBar)
+            return res.status(404).json({ err, message: `Le bar avec l'id: '${req.params.id_bar}' n'existe pas.` });
+
+        const updatedBar = req.body;
+
+        const result = await selectedBar.update(updatedBar);
+
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -53,6 +54,7 @@ controller.delete = async (req, res) => {
         if (deletedRows === 0) {
             return res.status(404).json({ error: "Bar not found" });
         }
+
         res.json({ message: "Bar deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -189,7 +191,6 @@ controller.getBeersWithQueryParams = async (req, res) => {
 };
 
 controller.orderQuery = async (req, res) => {
-
     const barId = req.params.id_bar;
     const whereOptions = { bars_id: barId };
 
@@ -218,7 +219,6 @@ controller.orderQuery = async (req, res) => {
     const commandes = await Commande.findAll({ where: whereOptions });
 
     res.json(commandes);
-}
-
+};
 
 module.exports = controller;
