@@ -15,7 +15,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use("/", barsRouter);
+app.use("/", express.Router().get("/", (req, res) => res.json({ message: "Hello World!" })))
 app.use("/bars", barsRouter);
 app.use("/bieres", BiereRouter);
 app.use("/commandes", CommandeRouter);

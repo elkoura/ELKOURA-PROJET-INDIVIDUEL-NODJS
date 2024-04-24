@@ -15,12 +15,18 @@ controller.store = async (req, res) => {
             email,
             description
         };
-        console.log(bar);
 
-        const createdBar = await Bars.create(bar);
-        res.json(createdBar);
+        const [createdBar, created] = await Bars.findOrCreate({
+            where: { name: bar.name },
+            defaults: bar
+        });
+
+        if (!created) return res.status(404).json({ error: "Bar already exists" });
+
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(201).json(createdBar);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        return res.status(500).json({ error: err.message });
     }
 };
 
@@ -55,7 +61,7 @@ controller.delete = async (req, res) => {
             return res.status(404).json({ error: "Bar not found" });
         }
 
-        res.json({ message: "Bar deleted successfully" });
+        res.status(200).json({ message: "Bar deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -72,8 +78,8 @@ controller.getAll = async (req, res) => {
         }
 
         const bars = await Bars.findAll({ where: whereOptions });
-
-        res.json(bars);
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        return res.json(bars);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

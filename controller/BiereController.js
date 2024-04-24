@@ -8,14 +8,14 @@ const biereController = {
         try {
             const newBiere = {
                 name: req.body.name,
-                type: req.body.type,
+                degree: req.body.degree,
                 prix: req.body.prix,
                 description: req.body.description,
-                bars_id: req.body.bars_id
+                bars_id: req.params.bars_id
             };
 
             const createdBiere = await Biere.create(newBiere);
-            res.status(201).json(createdBiere);
+            return res.status(201).json(createdBiere);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

@@ -1,13 +1,36 @@
 const request = require("supertest");
 const app = require("../index");
+const db = require("../config/database");
 
-describe("Test the root path", () => {
-    test("It should response the GET method", done => {
+
+describe("GET / - index route", () => {
+    beforeAll(async () => {
+        try {
+            await db.authenticate();
+        } catch (error) {
+            console.error('Unable to connect to the database:', error);
+        }
+    });
+
+    afterAll(async () => {
+        try {
+            await db.close();
+        } catch (error) {
+            console.error('Unable to close the database connection:', error);
+        }
+    });
+
+    test("It should return hello world", (done) => {
+
         request(app)
             .get("/")
+            .expect(200)
             .then(response => {
-                expect(response.statusCode).toBe(200);
+                expect(response.body).toEqual(expect.objectContaining({
+                    "message": "Hello World!"
+                }));
                 done();
             });
-    });
+    })
 });
+

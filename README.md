@@ -97,18 +97,18 @@ Les dependances:
 ### Biere
 
 -   POST /bars/:id_bar/biere => Ajouter une biere à un bars
--   PUT /biere/:id_biere => Modifier une biere
--   DELETE /biere/:id_biere => Supprimer une biere d'un bars
+-   PUT /:id_biere => Modifier une biere
+-   DELETE /:id_biere => Supprimer une biere d'un bars
 -   GET /bars/:id_bar/biere => Liste des biere d'un bars
 -   GET /biere/:id_biere => Détail d'une biere
 
 ### Commande
 
 -   POST /bars/:id_bar/commandes => Ajouter une commande à un bars
--   PUT /commandes/:id_commande => Modifier une commande d'un bars
--   DELETE /commandes/:id_commande => Supprimer une commande d'un bars
+-   PUT /:id_commande => Modifier une commande d'un bars
+-   DELETE /:id_commande => Supprimer une commande d'un bars
 -   GET /bars/:id_bar/commandes => Liste des commandes d'un bars
--   GET /commandes/:id => Détail d'une commande d'un bars
+-   GET /:id => Détail d'une commande d'un bars
 
 ### Biere_commande
 
