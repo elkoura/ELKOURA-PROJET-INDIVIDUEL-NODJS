@@ -7,7 +7,7 @@ const CommandeController = {
         const { id_bar } = req.params;
         const { date, prix_min, prix_max } = req.query;
 
-        let whereOptions = {
+        const whereOptions = {
             bars_id: parseInt(id_bar)
         };
 
@@ -59,14 +59,22 @@ const CommandeController = {
         const { id_commande } = req.params;
 
         Commande.findByPk(id_commande)
-            .then((commandeModel) => {
-                const { name, prix, status } = req.body;
-                const model = commandeModel.dataValues;
-                const commande = {
-                    name: name ?? model.name,
-                    prix: prix ?? model.prix,
-                    status: status ?? model.status
-                };
+            .then((commande) => {
+                if (!commande)
+                    return res.json({
+                        err,
+                        message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.`
+                    });
+
+                if (commande.status === "terminé") {
+                    return res
+                        .status(409)
+                        .json({ message: "Impossible de modifier la commande, elle est déjà terminée" });
+                }
+
+                const values = req.body;
+
+                commande.update(values);
 
                 return Commande.update(commande, { where: { id: id_commande } });
             })
@@ -78,6 +86,8 @@ const CommandeController = {
     details: (req, res) => {
         Commande.findByPk(req.params.id)
             .then((commande) => {
+                if (!commande) return res.status(404).json({ message: "commande non trouvée" });
+
                 res.json(commande);
             })
             .catch((err) => res.status(500).json({ error: err.message }));
@@ -85,7 +95,11 @@ const CommandeController = {
     delete: (req, res) => {
         const { id_commande } = req.params;
         Commande.destroy({ where: { id: id_commande } })
-            .then(() => {
+            .then((deletedRows) => {
+                if (deletedRows === 0) {
+                    return res.status(404).json({ message: "commande non trouvée" });
+                }
+
                 return res.json({ message: "commande:" + " " + id_commande + " supprimée" });
             })
             .catch((err) => res.status(500).json({ error: err.message }));

@@ -1,110 +1,55 @@
-const { body, validationResult } = require("express-validator");
+const { body, param } = require("express-validator");
 
-const BiereCommandes = require("../models/BiereCommandes");
-const Bieres = require("../models/Bieres");
-const Commandes = require("../models/Commandes");
-const Bars = require("../models/Bars");
-const Commande = require("../models/Commandes");
+const validateCommandeIdParam = [
+    param("id_commande")
+        .notEmpty()
+        .bail()
+        .withMessage("ID is required")
+        .isInt()
+        .bail()
+        .withMessage("ID must be a number")
+];
 
-function createValidationRules() {
-    return [
-        body("name").notEmpty().bail().withMessage("le nom est requis"),
-        body("prix")
-            .notEmpty()
-            .bail()
-            .withMessage("le prix est obligatoire")
-            .isFloat({ gt: 0 })
-            .bail()
-            .withMessage("le prix doit être un nombre positif"),
-        body("status")
-            .optional()
-            .isIn(["en cours", "terminé"])
-            .bail()
-            .withMessage("le status doit être en cours ou terminé"),
-        body("date")
-            .optional({ values: "null" })
-            .isDate()
-            .bail()
-            .withMessage("la date doit être une date valide")
-            .custom((value) => {
-                return new Date(value) < new Date();
-            })
-            .bail()
-            .withMessage("la date peut pas être dans le futur"),
-        // middleware field validation
-        function (req, res, next) {
-            const errors = validationResult(req);
+const createValidationRules = [
+    body("name").notEmpty().bail().withMessage("le nom est requis"),
+    body("prix")
+        .notEmpty()
+        .bail()
+        .withMessage("le prix est obligatoire")
+        .isFloat({ gt: 0 })
+        .bail()
+        .withMessage("le prix doit être un nombre positif"),
+    body("status")
+        .optional()
+        .isIn(["en cours", "terminé"])
+        .bail()
+        .withMessage("le status doit être en cours ou terminé"),
+    body("date")
+        .optional({ values: "null" })
+        .isDate()
+        .bail()
+        .withMessage("la date doit être une date valide")
+        .custom((value) => {
+            return new Date(value) < new Date();
+        })
+        .bail()
+        .withMessage("la date peut pas être dans le futur")
+];
 
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
+const updateValidationRules = [
+    ...validateCommandeIdParam,
+    body("name").optional({ nullable: true }),
+    body("prix")
+        .optional({ nullable: true })
+        .isFloat({ gt: 0 })
+        .bail()
+        .withMessage("le prix doit être un nombre positif"),
+    body("status")
+        .optional({ nullable: true })
+        .isIn(["en cours", "terminé"])
+        .bail()
+        .withMessage("le status doit être en cours ou terminé")
+    // middleware field validation
+];
 
-            Bars.findByPk(req.params.id_bar)
-                .then(() => {
-                    next();
-                })
-                .catch((err) =>
-                    res.status(404).json({ message: `Le bar avec l'id: '${req.params.id_bar}' n'exist pas.` })
-                );
-        }
-    ];
-}
-
-function updateValidationRules() {
-    return [
-        body("name").optional({ nullable: true }),
-        body("prix")
-            .optional({ nullable: true })
-            .isFloat({ gt: 0 })
-            .bail()
-            .withMessage("le prix doit être un nombre positif"),
-        body("status")
-            .optional({ nullable: true })
-            .isIn(["en cours", "terminé"])
-            .bail()
-            .withMessage("le status doit être en cours ou terminé"),
-        // middleware field validation
-        function (req, res, next) {
-            const errors = validationResult(req);
-
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            Commandes.findByPk(parseInt(req.params.id_commande))
-                .then((commande) => {
-                    if (commande.status === "terminé") {
-                        return res
-                            .status(409)
-                            .json({ message: "Impossible de modifier la commande, elle est déjà terminée" });
-                    } else {
-                        next();
-                    }
-                })
-                .catch((err) =>
-                    res
-                        .status(404)
-                        .json({ err, message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` })
-                );
-        }
-    ];
-}
-
-function commandIdValidation() {
-    return [
-        function (req, res, next) {
-            Commandes.findByPk(parseInt(req.params.id_commande))
-                .then((model) => {
-                    if (!model)
-                        return res
-                            .status(404)
-                            .json({ message: `La commande avec l'id: '${req.params.id_commande}' n'exist pas.` });
-
-                    next();
-                })
-                .catch((err) => res.status(500).json({ err }));
-        }
-    ];
-}
-
-module.exports = { createValidationRules, updateValidationRules, commandIdValidation };
+module.exports = { createValidationRules, updateValidationRules, validateCommandeIdParam };
