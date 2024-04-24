@@ -1,10 +1,6 @@
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const db = require("./config/database");
 const app = express();
 const bodyParser = require("body-parser");
-require("dotenv").config();
 
 // routers
 const barsRouter = require("./router/barsRouter");
@@ -19,26 +15,9 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/bars", barsRouter);
+app.use("/bieres", BiereRouter);
+app.use("/commandes", CommandeRouter);
+app.use("/bierecommandes", BiereCommandesRouter);
 
-const initDB = () => {
-    require("./models/associations");
-    return db
-        .sync()
-        .then(() => {
-            /*no op*/
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-};
-
-initDB().then(() => {
-    app.listen(process.env.SERVER_PORT, () => {
-        console.log("App running on port " + process.env.SERVER_PORT);
-    });
-
-    app.use("/bars", barsRouter);
-    app.use("/bieres", BiereRouter);
-    app.use("/commandes", CommandeRouter);
-    app.use("/bierecommandes", BiereCommandesRouter);
-});
+module.exports = app;
