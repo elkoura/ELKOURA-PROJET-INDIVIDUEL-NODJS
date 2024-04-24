@@ -10,7 +10,7 @@ const validationRules = [...createOrDeleteValidationRules, errorValidator];
 router.post("/", validationRules, biereCommandesController.create);
 router.delete("/", validationRules, biereCommandesController.delete);
 
-// using url params:
+// using url params: not using checks here cuz lazy
 router.post("/commande/:commande_id/biere/:biere_id", biereCommandesController.create);
 router.delete("/commande/:commande_id/biere/:biere_id", biereCommandesController.delete);
 

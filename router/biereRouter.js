@@ -6,9 +6,9 @@ const { validateBiere, validateIdParam, updateValidateBiere } = require("../vali
 const errorValidator = require("../validators/errorValidator");
 
 router.post("/bar/:id_bar/biere", [...validateBiere, errorValidator], biereController.createBiere);
-router.put("/:id_biere", [updateValidateBiere, errorValidator], biereController.updateBiere);
-router.get("/:id_biere", validateIdParam, biereController.getBiere);
-router.delete("/:id_biere", validateIdParam, biereController.deleteBiere);
-router.get("/bar/:id_bar/biere", validateIdParam, biereController.listBieres);
+router.put("/:id_biere", [...updateValidateBiere, errorValidator], biereController.updateBiere);
+router.get("/:id_biere", [...validateIdParam, errorValidator], biereController.getBiere);
+router.delete("/:id_biere", [...validateIdParam, errorValidator], biereController.deleteBiere);
+router.get("/bar/:id_bar/biere", [...validateIdParam, errorValidator], biereController.listBieres);
 
 module.exports = router;

@@ -1,5 +1,4 @@
-const { body, validationResult, param } = require("express-validator");
-const Bars = require("../models/Bars");
+const { body, param } = require("express-validator");
 
 const validateIdParam = [
     param("id_bar").notEmpty().bail().withMessage("ID is required").isInt().bail().withMessage("ID must be a number")
