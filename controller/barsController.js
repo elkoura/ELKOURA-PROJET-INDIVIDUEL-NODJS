@@ -24,7 +24,7 @@ controller.store = async (req, res) => {
         if (!created) return res.status(404).json({ error: "Bar already exists" });
 
         res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json(createdBar);
+        return res.status(201).json(createdBar);
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
@@ -61,7 +61,7 @@ controller.delete = async (req, res) => {
             return res.status(404).json({ error: "Bar not found" });
         }
 
-        res.json({ message: "Bar deleted successfully" });
+        res.status(200).json({ message: "Bar deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
