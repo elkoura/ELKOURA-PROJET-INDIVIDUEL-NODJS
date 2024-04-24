@@ -51,25 +51,29 @@ const biereController = {
 
       // Find associated BiereCommande records
       const biereCommandes = await BiereCommande.findAll({
-        where: { biere_id: id_biere },
+        where: { biere_id: id_biere }
       });
 
-      // Delete associated Commande records
-      let commandeDestroyed;
-      for (let biereCommande of biereCommandes) {
-        commandeDestroyed += await Commande.destroy({
-          where: { id: biereCommande.commande_id },
-        });
-      }
+      // // Delete associated Commande records
+      // let commandeDestroyed;
+      // for (let biereCommande of biereCommandes) {
+      //   commandeDestroyed += await Commande.destroy({
+      //     where: { id: biereCommande.commande_id },
+      //   });
+      // }
 
       // Delete Biere
-      const deletedBeers = await Biere.destroy({ where: { id: id_biere } });
+      const biere = await Biere.findByPk(id_biere);
+      // const deletedBeers = await Biere.destroy({ where: { id: id_biere } });
 
-      if (deletedBeers === 0) {
+      if (!deletedBeers) {
         return res.status(404).json({ error: "Beer not found" });
       }
-      res.status(200).json({
-        message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) `,
+
+      await biere.destroy();
+
+      return res.status(200).json({
+        // message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) `,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });

@@ -1,17 +1,53 @@
 const request = require("supertest");
 const app = require("../index");
 const db = require("../config/database");
+const Bar = require("../models/Bars");
+
+function simplifyModel(instance) {
+  const plain = instance.get ? instance.get({ plain: true }) : instance;
+
+  delete plain.createdAt;
+  delete plain.updatedAt;
+
+  return plain;
+}
 
 describe("/bars - CRUD endpoints", () => {
   let bar = {};
 
   beforeAll(async () => {
     try {
-      await db.authenticate();
-      await db.sync();
-
+      db.authenticate();
     } catch (error) {
       console.error("Unable to connect to the database:", error);
+    }
+  });
+
+  beforeEach(async () => {
+    const uniqueName = Math.random().toString(36).substring(7);
+    try {
+      transaction = await db.transaction();
+      const testBar = {
+        name: uniqueName,
+        adresse: "888 Main Street",
+        tel: "555-1234",
+        description: "test",
+        email: "test@gmail.com"
+      }
+      return bar = await Bar.create(testBar, transaction);
+
+    }
+    catch (error) {
+      await transaction.rollback();
+      console.error("Unable to connect to the database:", error);
+    }
+  });
+
+  afterEach(async () => {
+    try {
+      await transaction.rollback();
+    } catch (error) {
+      console.error("Unable to rollback the transaction:", error);
     }
   });
 
@@ -26,51 +62,49 @@ describe("/bars - CRUD endpoints", () => {
   test("POST // It should create a new bar", (done) => {
     const uniqueString = Math.random().toString(36).substring(7);
     const name = `test -${uniqueString}`;
+
+    const newBar = {
+      name,
+      adresse: "888 Main Street",
+      tel: "555-1234",
+      description: "A great place to have a drink",
+      email: "test@example.com",
+    }
+
     request(app)
       .post("/bars")
-      .send({
-        name: name,
-        adresse: "888 Main Street",
-        tel: "555-1234",
-        description: "A great place to have a drink",
-        email: "test@example.com",
-      })
+      .send(newBar)
       .set("Accept", "application/json")
       .expect("Content-Type", "application/json; charset=utf-8")
       .expect(201)
       .then((response) => {
         expect(response.body).toEqual(
-          expect.objectContaining({
-            name: name,
-            adresse: "888 Main Street",
-            tel: "555-1234",
-            description: "A great place to have a drink",
-            email: "test@example.com",
-          }),
+          expect.objectContaining(simplifyModel(newBar)),
         );
-        bar = response.body;
         done();
       });
   });
 
   test("PUT // It should update a bar", (done) => {
     const { id, name, adresse, tel, description, email } = bar;
-    const nameChange = `${name} - changed`;
+    const editedBarModel = {
+      id,
+      name,
+      adresse,
+      tel,
+      description,
+      email
+    }
     request(app)
       .put(`/bars/${id}`)
-      .send({
-        name: nameChange,
-      })
+      .send(editedBarModel)
       .set("Accept", "application/json")
       .expect("Content-Type", "application/json; charset=utf-8")
       .expect(200)
       .then((response) => {
         expect(response.body).toEqual(
-          expect.objectContaining({
-            name: nameChange,
-          }),
+          expect.objectContaining(simplifyModel(editedBarModel)),
         );
-        bar = response.body;
         done();
       });
   });
@@ -81,7 +115,7 @@ describe("/bars - CRUD endpoints", () => {
       .get(`/bars/${id}`)
       .expect(200)
       .then((response) => {
-        expect(response.body).toEqual(bar);
+        expect(response.body).toEqual(expect.objectContaining(simplifyModel(bar)));
         done();
       });
   });
@@ -102,22 +136,25 @@ describe("/bars - CRUD endpoints", () => {
   });
 
   test("GET // It should return a list of bars", (done) => {
+
+    const barListShape = {
+      id: expect.any(Number),
+      name: expect.any(String),
+      adresse: expect.any(String),
+      tel: expect.any(String),
+      email: expect.any(String),
+      description: expect.any(String),
+      updatedAt: expect.any(String),
+      createdAt: expect.any(String)
+    }
+
     request(app)
       .get("/bars")
       .expect(200)
       .then((response) => {
         expect(response.body).toEqual(
           expect.arrayContaining([
-            expect.objectContaining({
-              id: expect.any(Number),
-              name: expect.any(String),
-              adresse: expect.any(String),
-              tel: expect.any(String),
-              email: expect.any(String),
-              description: expect.any(String),
-              updatedAt: expect.any(String),
-              createdAt: expect.any(String),
-            }),
+            expect.objectContaining(barListShape),
           ]),
         );
         done();

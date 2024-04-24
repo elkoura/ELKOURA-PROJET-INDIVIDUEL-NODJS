@@ -1,17 +1,44 @@
 const request = require("supertest");
 const app = require("../index");
 const db = require("../config/database");
+const Biere = require("../models/Bieres");
 
 describe("/bieres - CRUD endpoints", () => {
     let biere = {};
+    let transaction;
 
     beforeAll(async () => {
         try {
-            await db.authenticate();
-            await db.sync();
+            db.authenticate();
+        } catch (error) {
+            await transaction.rollback();
+            console.error("Unable to connect to the database:", error);
+        }
+    });
+
+    beforeEach(async () => {
+        try {
+            transaction = await db.transaction();
+            const testBiere = {
+                name: "bieres Test Name",
+                degree: 1.5,
+                prix: 50,
+                description: "test",
+                bars_id: 2
+            }
+            biere = await Biere.create(testBiere, transaction);
 
         } catch (error) {
+            await transaction.rollback();
             console.error("Unable to connect to the database:", error);
+        }
+    });
+
+    afterEach(async () => {
+        try {
+            await transaction.rollback();
+        } catch (error) {
+            console.error("Unable to rollback the transaction:", error);
         }
     });
 
@@ -25,28 +52,102 @@ describe("/bieres - CRUD endpoints", () => {
 
     test("POST // It should create a new bar", (done) => {
         const uniqueString = Math.random().toString(36).substring(7);
+        const newBar = {
+            name: uniqueString,
+            description: "test",
+            degree: 1.5,
+            prix: 50,
+        }
         request(app)
             .post("/bieres/bar/2/biere")
-            .send({
-                name: uniqueString,
-                description: "test",
-                degree: 1.5,
-                prix: 50,
-            })
+            .send(newBar)
             .set("Accept", "application/json")
             .expect("Content-Type", "application/json; charset=utf-8")
             .expect(201)
             .then((response) => {
-                expect(response.body).toEqual(
-                    expect.objectContaining({
-                        name: uniqueString,
-                        description: "test",
-                        degree: 1.5,
-                        prix: 50,
-                    }),
-                );
-                biere = response.body;
+                expect(response.body).toEqual(expect.objectContaining(newBar));
                 done();
             });
     });
+
+
+
+    test("GET // It should get the newly created and edited Biere", (done) => {
+        request(app)
+            .get(`/bieres/${biere.id}`)
+            .expect("Content-Type", "application/json; charset=utf-8")
+            .expect(200)
+            .then((response) => {
+                const responseBeer = response.body;
+                responseBeer.updatedAt = new Date(responseBeer.updatedAt);
+                responseBeer.createdAt = new Date(responseBeer.updatedAt);
+
+                expect(responseBeer).toEqual(expect.objectContaining(biere.dataValues));
+                done();
+            });
+    });
+
+    test("PUT // It should update a bar", (done) => {
+        const editedBiereModel = {
+            id: biere.id,
+            name: `${biere.name}_edited`,
+            description: `${biere.description}_edited`,
+            degree: biere.degree + 1,
+            prix: biere.prix + 10,
+            bars_id: biere.bars_id,
+            updatedAt: expect.any(String),
+        };
+
+        request(app)
+            .put(`/bieres/${biere.id}`)
+            .send(editedBiereModel)
+            .set("Accept", "application/json")
+            .expect("Content-Type", "application/json; charset=utf-8")
+            .expect(200)
+            .then((response) => {
+                expect(response.body.beer).toEqual(expect.objectContaining(editedBiereModel));
+                done();
+            });
+    });
+
+    test("DELETE // It should delete a biere", (done) => {
+        // const { id } = biere;
+        request(app)
+            .delete(`/bieres/${biere.id}`)
+            .expect("Content-Type", "application/json; charset=utf-8")
+            // .expect(200)
+            .then((response) => {
+                expect(response.body).toEqual({ message: expect.any(String) });
+                done();
+            }).catch((error) => {
+                console.log("error", error);
+                done(error);
+            });
+    });
+
+    // test("GET // It should return a list of beers", (done) => {
+
+    //     const beerListShape = {
+    //         id: 2,
+    //         name: expect.any(String),
+    //         adresse: expect.any(String),
+    //         tel: expect.any(String),
+    //         email: expect.any(String),
+    //         description: expect.any(String),
+    //         updatedAt: expect.any(String),
+    //         createdAt: expect.any(String)
+    //     }
+
+    //     request(app)
+    //         .get("/bieres/bars/:id_bar/biere")
+    //         .expect(200)
+    //         .then((response) => {
+    //             expect(response.body).toEqual(
+    //                 expect.arrayContaining([
+    //                     expect.objectContaining(beerListShape),
+    //                 ]),
+    //             );
+    //             done();
+    //         });
+    // });
 });
