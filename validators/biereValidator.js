@@ -5,7 +5,14 @@ const validateIdParam = [
     param("id_biere").notEmpty().bail().withMessage("ID is required").isInt().bail().withMessage("ID must be a number")
 ];
 
+const validateBarsIdParam = [
+    param("bars_id").notEmpty().bail().withMessage("ID is required")
+        .isInt().bail().withMessage("ID must be a number")
+];
+
+
 const validateBiere = [
+    ...validateBarsIdParam,
     body("name").notEmpty().isString().withMessage("Name doit etre un chaine de caractere"),
     body("description").notEmpty().isString().withMessage("description doit etre un chaine de caractere"),
     body("degree").notEmpty().isFloat({ gt: 0 }).withMessage("degree doit etre positif"),
