@@ -68,7 +68,6 @@ controller.delete = async (req, res) => {
 };
 
 controller.getAll = async (req, res) => {
-    console.log('test')
     try {
         const whereOptions = {};
         if (req.query.adresse) {
