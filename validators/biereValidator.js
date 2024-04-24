@@ -10,7 +10,6 @@ const validateBarsIdParam = [
         .isInt().bail().withMessage("ID must be a number")
 ];
 
-
 const validateBiere = [
     ...validateBarsIdParam,
     body("name").notEmpty().isString().withMessage("Name doit etre un chaine de caractere"),
