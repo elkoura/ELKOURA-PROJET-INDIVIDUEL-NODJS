@@ -3,6 +3,6 @@ env
 config/*
 .vscode
 pnpm-lock.yaml
-db.sqlite
+# db.sqlite
 .eslintrc.json
 .prettierrc.json
