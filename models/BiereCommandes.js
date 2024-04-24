@@ -4,20 +4,20 @@ const Biere = require("./Bieres");
 const Commande = require("./Commandes");
 
 const BiereCommande = db.define("biere_commandes", {
-    biere_id: {
-        type: sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: "bieres"
-        }
+  biere_id: {
+    type: sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: "bieres",
     },
-    commande_id: {
-        type: sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: "commandes"
-        }
-    }
+  },
+  commande_id: {
+    type: sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: "commandes",
+    },
+  },
 });
 
 module.exports = BiereCommande;

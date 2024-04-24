@@ -1,38 +1,38 @@
 {
-    "name": "elkoura-projet-individuel-nodjs",
-    "version": "1.0.0",
-    "description": "- [Consignes du projet](#consignes-du-projet)\r   - [Description](#description)\r   - [Schéma de base de donnée](#schéma-de-base-de-donnée)\r     - [Bars](#bars)\r     - [Biere](#biere)\r     - [Biere_Commande (table de liaison)](#biere_commande-table-de-liaison)\r     - [Commande](#commande)\r   - [Liste des endpoints](#liste-des-endpoints)\r     - [Bars](#bars-1)\r     - [Biere](#biere-1)\r     - [Commande](#commande-1)\r     - [Biere_commande](#biere_commande)\r   - [Liste des endpoints avancés](#liste-des-endpoints-avancés)\r   - [Liste des fichiers recommandés](#liste-des-fichiers-recommandés)\r   - [Liste des modules à installer (recommendation)](#liste-des-modules-à-installer-recommendation)\r   - [Liste des contraintes sur mes routes et models :](#liste-des-contraintes-sur-mes-routes-et-models-)\r   - [BONUS 1](#bonus-1)\r   - [BONUS 2](#bonus-2)\r   - [BONUS 3](#bonus-3)",
-    "main": "index.js",
-    "scripts": {
-        "dev": "nodemon server.js",
-        "lint": "eslint --fix ./**/*.js",
-        "format": "prettier --write .",
-        "test": "jest --verbose"
-    },
-    "author": "Par: Elkoura, Kiki, Mickael, et Thomas",
-    "license": "ISC",
-    "dependencies": {
-        "body-parser": "^1.20.2",
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "express-validator": "^7.0.1",
-        "jspdf": "^2.5.1",
-        "sequelize": "^6.37.3",
-        "sqlite3": "^5.1.7"
-    },
-    "keywords": [],
-    "devDependencies": {
-        "@eslint/js": "^9.1.1",
-        "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
-        "eslint": "^9.1.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.1.3",
-        "globals": "^15.0.0",
-        "jest": "^29.7.0",
-        "nodemon": "^3.1.0",
-        "prettier": "3.2.5",
-        "superagent": "^9.0.1",
-        "supertest": "^6.3.4"
-    }
+  "name": "elkoura-projet-individuel-nodjs",
+  "version": "1.0.0",
+  "description": "- [Consignes du projet](#consignes-du-projet)\r   - [Description](#description)\r   - [Schéma de base de donnée](#schéma-de-base-de-donnée)\r     - [Bars](#bars)\r     - [Biere](#biere)\r     - [Biere_Commande (table de liaison)](#biere_commande-table-de-liaison)\r     - [Commande](#commande)\r   - [Liste des endpoints](#liste-des-endpoints)\r     - [Bars](#bars-1)\r     - [Biere](#biere-1)\r     - [Commande](#commande-1)\r     - [Biere_commande](#biere_commande)\r   - [Liste des endpoints avancés](#liste-des-endpoints-avancés)\r   - [Liste des fichiers recommandés](#liste-des-fichiers-recommandés)\r   - [Liste des modules à installer (recommendation)](#liste-des-modules-à-installer-recommendation)\r   - [Liste des contraintes sur mes routes et models :](#liste-des-contraintes-sur-mes-routes-et-models-)\r   - [BONUS 1](#bonus-1)\r   - [BONUS 2](#bonus-2)\r   - [BONUS 3](#bonus-3)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "lint": "eslint --fix ./**/*.js",
+    "format": "prettier --write .",
+    "test": "jest --runInBand --verbose"
+  },
+  "author": "Par: Elkoura, Kiki, Mickael, et Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jspdf": "^2.5.1",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^9.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "globals": "^15.0.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "prettier": "3.2.5",
+    "superagent": "^9.0.1",
+    "supertest": "^6.3.4"
+  }
 }
