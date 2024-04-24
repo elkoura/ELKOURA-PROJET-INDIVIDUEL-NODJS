@@ -15,6 +15,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/", barsRouter);
 app.use("/bars", barsRouter);
 app.use("/bieres", BiereRouter);
 app.use("/commandes", CommandeRouter);
