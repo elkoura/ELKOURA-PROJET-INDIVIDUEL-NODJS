@@ -7,7 +7,7 @@
     "dev": "nodemon server.js",
     "lint": "eslint --fix ./**/*.js",
     "format": "prettier --write .",
-    "test": "jest -i --verbose"
+    "test": "jest -i --coverage --verbose"
   },
   "author": "Par: Elkoura, Kiki, Mickael, et Thomas",
   "license": "ISC",

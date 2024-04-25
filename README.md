@@ -217,11 +217,11 @@ Ensuite, il faut envoyer les données `commande_id` et `biere_id` dans le payloa
 
 ## BONUS 2
 
-Tester les routes avec Jest et Supertest
+Tester les routes avec Jest et Supertest 
 
 ## BONUS 3
 
 Venez me voir pour le bonus 3
 
-- auth
-- vue/angular
+- auth - a la main (jwt)
+- some FE framework (vue/ang/rJS)

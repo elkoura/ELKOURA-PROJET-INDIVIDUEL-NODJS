@@ -26,6 +26,7 @@ describe("/bars - CRUD endpoints", () => {
   beforeEach(async () => {
     const uniqueName = Math.random().toString(36).substring(7);
     try {
+
       transaction = await db.transaction();
       const testBar = {
         name: uniqueName,
@@ -34,8 +35,8 @@ describe("/bars - CRUD endpoints", () => {
         description: "test",
         email: "test@gmail.com"
       }
-      return bar = await Bar.create(testBar, transaction);
 
+      return bar = await Bar.create(testBar, transaction);
     }
     catch (error) {
       await transaction.rollback();
@@ -87,6 +88,7 @@ describe("/bars - CRUD endpoints", () => {
 
   test("PUT // It should update a bar", (done) => {
     const { id, name, adresse, tel, description, email } = bar;
+
     const editedBarModel = {
       id,
       name,
@@ -95,6 +97,7 @@ describe("/bars - CRUD endpoints", () => {
       description,
       email
     }
+
     request(app)
       .put(`/bars/${id}`)
       .send(editedBarModel)

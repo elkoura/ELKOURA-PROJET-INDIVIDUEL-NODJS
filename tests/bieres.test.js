@@ -11,7 +11,6 @@ describe("/bieres - CRUD endpoints", () => {
         try {
             db.authenticate();
         } catch (error) {
-            await transaction.rollback();
             console.error("Unable to connect to the database:", error);
         }
     });
