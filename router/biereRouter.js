@@ -6,6 +6,7 @@ const {
   validateBiere,
   validateIdParam,
   updateValidateBiere,
+  validateBarsIdParam
 } = require("../validators/biereValidator");
 const errorValidator = require("../validators/errorValidator");
 
@@ -31,7 +32,7 @@ router.delete(
 );
 router.get(
   "/bar/:id_bar/biere",
-  [...validateIdParam, errorValidator],
+  [...validateBarsIdParam, errorValidator],
   biereController.listBieres,
 );
 

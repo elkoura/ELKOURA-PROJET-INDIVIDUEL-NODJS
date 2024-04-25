@@ -26,7 +26,9 @@ export function api(url, method = HTTP_METHODS.GET) {
 
 export const store = reactive({
     helloWorld: null,
-    selectedAppBarIndex: 0
+    selectedAppBarIndex: 0,
+    selectedBiere: null,
+    bieres: null
 })
 
 

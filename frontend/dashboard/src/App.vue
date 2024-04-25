@@ -3,6 +3,7 @@
   import { api, store } from './utils';
   import AppBar from './components/AppBar.vue';
 import Bars from './components/Bars.vue';
+import Bieres from './components/Bieres.vue';
 
   const url = "/";
   const bar2BeersListURL = `/bieres/bar/${2}/biere`
@@ -24,13 +25,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav>
+  <div>
+     <nav>
     <AppBar/>
   </nav>
 
   <div v-if="data && store.selectedAppBarIndex === 0"> {{ data.message }}</div>
   <Bars  v-if="data && store.selectedAppBarIndex === 1"/>
+  <Bieres v-if="store.selectedAppBarIndex === 2"/>
 
+    
+  </div>
+ 
 </template>
 
 <style scoped>

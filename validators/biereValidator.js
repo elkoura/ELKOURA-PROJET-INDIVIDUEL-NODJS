@@ -2,7 +2,7 @@ const { body, validationResult, param } = require("express-validator");
 const Bieres = require("../models/Bieres");
 
 const validateIdParam = [
-  param("id_bar")
+  param("id_biere")
     .notEmpty()
     .bail()
     .withMessage("ID is required")
@@ -58,6 +58,7 @@ module.exports = {
   validateBiere,
   validateIdParam,
   updateValidateBiere,
+  validateBarsIdParam
 };
 
 // const { body } = require("express-validator");
