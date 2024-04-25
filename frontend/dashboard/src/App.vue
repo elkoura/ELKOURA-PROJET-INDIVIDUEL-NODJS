@@ -5,20 +5,7 @@
   import AppBar from './components/AppBar.vue';
 
   const url = "/";
-  //FIXME: this route has an issue
-  /**
-         * {
-        "errors": [
-          {
-            "type": "field",
-            "msg": "ID is required",
-            "path": "id_biere",
-            "location": "params"
-          }
-        ]
-      }
-   */
-  const bar2BeersListURL = "/bieres/bar/2/biere"
+  const bar2BeersListURL = `/bieres/bar/${2}/biere`
   const allBarsUrl = "/bars";
 
 const data = ref(null);
@@ -30,6 +17,8 @@ onMounted(async () => {
   try {
     const helloMessageResponse = await api(url);
     const barsResponse = await api(allBarsUrl);
+    const bar2BeersListResponse = await api(bar2BeersListURL);
+    console.log(bar2BeersListResponse.data);
     data.value = helloMessageResponse.data;
 
     bars.value = barsResponse.data;
