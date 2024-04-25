@@ -16,6 +16,7 @@ const initDB = () => {
 
 initDB().then(() => {
   app.listen(process.env.SERVER_PORT, () => {
+    db.sync();
     console.log("App running on port " + process.env.SERVER_PORT);
   });
 });

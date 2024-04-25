@@ -50,9 +50,10 @@ const biereController = {
       const { id_biere } = req.params;
 
       // Find associated BiereCommande records
-      const biereCommandes = await BiereCommande.findAll({
-        where: { biere_id: id_biere }
-      });
+      // const biereCommandes = await BiereCommande.findAll({
+      //   where: { biere_id: id_biere }
+      // });
+
 
       // // Delete associated Commande records
       // let commandeDestroyed;
@@ -65,15 +66,15 @@ const biereController = {
       // Delete Biere
       const biere = await Biere.findByPk(id_biere);
       // const deletedBeers = await Biere.destroy({ where: { id: id_biere } });
-
-      if (!deletedBeers) {
+      if (!biere) {
         return res.status(404).json({ error: "Beer not found" });
       }
 
       await biere.destroy();
 
       return res.status(200).json({
-        // message: `${deletedBeers} beer(s) destroyed, along side with ${commandeDestroyed} order(s) `,
+        // , along side with ${ commandeDestroyed } order(s
+        message: `${biere.name} has been destroyed) `,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -102,6 +103,7 @@ const biereController = {
       }
 
       res.status(200).json(biere);
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

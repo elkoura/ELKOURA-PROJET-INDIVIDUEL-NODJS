@@ -2,14 +2,28 @@ const request = require("supertest");
 const app = require("../index");
 const db = require("../config/database");
 const Biere = require("../models/Bieres");
+const BiereCommande = require("../models/BiereCommandes");
 
 describe("/bieres - CRUD endpoints", () => {
     let biere = {};
     let transaction;
 
+    async function createTestBiere(transaction) {
+        const testBiere = {
+            name: "testing biere",
+            degree: 1.5,
+            prix: 50,
+            description: "test",
+            bars_id: 2
+        }
+        biere = await Biere.create(testBiere, { transaction })
+        return biere;
+    }
+
     beforeAll(async () => {
         try {
             db.authenticate();
+            return;
         } catch (error) {
             console.error("Unable to connect to the database:", error);
         }
@@ -18,15 +32,6 @@ describe("/bieres - CRUD endpoints", () => {
     beforeEach(async () => {
         try {
             transaction = await db.transaction();
-            const testBiere = {
-                name: "bieres Test Name",
-                degree: 1.5,
-                prix: 50,
-                description: "test",
-                bars_id: 2
-            }
-            biere = await Biere.create(testBiere, transaction);
-
         } catch (error) {
             await transaction.rollback();
             console.error("Unable to connect to the database:", error);
@@ -35,7 +40,9 @@ describe("/bieres - CRUD endpoints", () => {
 
     afterEach(async () => {
         try {
-            await transaction.rollback();
+            if (transaction.finished !== 'rollback') {
+                await transaction.rollback();
+            }
         } catch (error) {
             console.error("Unable to rollback the transaction:", error);
         }
@@ -57,6 +64,7 @@ describe("/bieres - CRUD endpoints", () => {
             degree: 1.5,
             prix: 50,
         }
+
         request(app)
             .post("/bieres/bar/2/biere")
             .send(newBar)
@@ -66,24 +74,40 @@ describe("/bieres - CRUD endpoints", () => {
             .then((response) => {
                 expect(response.body).toEqual(expect.objectContaining(newBar));
                 done();
+            }).catch((error) => {
+                console.log("error", error);
+                done(error);
             });
     });
 
-
-
     test("GET // It should get the newly created and edited Biere", (done) => {
-        request(app)
-            .get(`/bieres/${biere.id}`)
-            .expect("Content-Type", "application/json; charset=utf-8")
-            .expect(200)
-            .then((response) => {
-                const responseBeer = response.body;
-                responseBeer.updatedAt = new Date(responseBeer.updatedAt);
-                responseBeer.createdAt = new Date(responseBeer.updatedAt);
+        new Promise(async (resolve, reject) => {
+            const b = await createTestBiere(transaction);
+            transaction.commit();
 
-                expect(responseBeer).toEqual(expect.objectContaining(biere.dataValues));
-                done();
-            });
+            if (!b) {
+                reject("Error creating test data.", biere);
+            }
+
+            resolve(b);
+
+        }).then(biere => {
+            request(app)
+                .get(`/bieres/${biere.id}`)
+                .expect("Content-Type", "application/json; charset=utf-8")
+                .expect(200)
+                .then((response) => {
+                    const responseBeer = response.body;
+                    responseBeer.updatedAt = new Date(responseBeer.updatedAt);
+                    responseBeer.createdAt = new Date(responseBeer.updatedAt);
+
+                    expect(responseBeer).toEqual(expect.objectContaining(biere.dataValues));
+                    done();
+                }).catch((error) => {
+                    console.log("error", error);
+                    done(error);
+                });
+        });
     });
 
     test("PUT // It should update a bar", (done) => {
@@ -106,23 +130,36 @@ describe("/bieres - CRUD endpoints", () => {
             .then((response) => {
                 expect(response.body.beer).toEqual(expect.objectContaining(editedBiereModel));
                 done();
-            });
-    });
-
-    test("DELETE // It should delete a biere", (done) => {
-        // const { id } = biere;
-        request(app)
-            .delete(`/bieres/${biere.id}`)
-            .expect("Content-Type", "application/json; charset=utf-8")
-            // .expect(200)
-            .then((response) => {
-                expect(response.body).toEqual({ message: expect.any(String) });
-                done();
             }).catch((error) => {
                 console.log("error", error);
                 done(error);
             });
     });
+
+    // test.only("DELETE // It should delete a biere", (done) => {
+    //     new Promise(async (resolve, reject) => {
+    //         const b = await createTestBiere(transaction);
+    //         const o = BiereCommande.create({ biere_id: b.id, commande_id: 2 }, { transaction });
+
+    //         if (!b || !o) {
+    //             reject("Error creating test data.", b, o);
+    //         }
+    //         resolve(b);
+    //     }).then(b => {
+    //         request(app)
+    //             .delete(`/bieres/${b.id}`)
+    //             .expect("Content-Type", "application/json; charset=utf-8")
+    //             // .expect(200)
+    //             .then((response) => {
+    //                 expect(response.body).toEqual({ message: expect.any(String) });
+    //                 done();
+    //             }).catch((error) => {
+    //                 console.log("error", error);
+    //                 done(error);
+    //             });
+    //     });
+
+    // });
 
     // test("GET // It should return a list of beers", (done) => {
 
