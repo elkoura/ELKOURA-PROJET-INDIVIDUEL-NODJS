@@ -2,6 +2,7 @@
   import { ref, onMounted } from 'vue';
   import { api, store } from './utils';
   import AppBar from './components/AppBar.vue';
+import Bars from './components/Bars.vue';
 
   const url = "/";
   const bar2BeersListURL = `/bieres/bar/${2}/biere`
@@ -28,6 +29,7 @@ onMounted(async () => {
   </nav>
 
   <div v-if="data && store.selectedAppBarIndex === 0"> {{ data.message }}</div>
+  <Bars  v-if="data && store.selectedAppBarIndex === 1"/>
 
 </template>
 
