@@ -9,15 +9,18 @@ const BiereRouter = require("./router/biereRouter");
 const CommandeRouter = require("./router/commandeRouter");
 const BiereCommandesRouter = require("./router/biereCommandesRouter");
 
+
+//Settings
 app.use(
   bodyParser.urlencoded({
     extended: false,
   }),
 );
-
 app.use(cors());
-
 app.use(bodyParser.json());
+
+
+// API Routes
 app.use(
   "/",
   express
