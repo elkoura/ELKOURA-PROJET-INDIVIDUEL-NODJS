@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // routers
 const barsRouter = require("./router/barsRouter");
@@ -13,6 +14,8 @@ app.use(
     extended: false,
   }),
 );
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(

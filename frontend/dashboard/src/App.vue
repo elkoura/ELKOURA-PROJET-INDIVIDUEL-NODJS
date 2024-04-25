@@ -1,17 +1,50 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+  import { ref, onMounted } from 'vue';
+  import HelloWorld from './components/HelloWorld.vue';
+  import {api} from './utils';
+  import AppBar from './components/AppBar.vue';
+
+  const url = "/";
+  //FIXME: this route has an issue
+  /**
+         * {
+        "errors": [
+          {
+            "type": "field",
+            "msg": "ID is required",
+            "path": "id_biere",
+            "location": "params"
+          }
+        ]
+      }
+   */
+  const bar2BeersListURL = "/bieres/bar/2/biere"
+  const allBarsUrl = "/bars";
+
+const data = ref(null);
+const bars = ref([]);
+
+// create basic api helper so its easier to call all basic routes 
+
+onMounted(async () => {
+  try {
+    const helloMessageResponse = await api(url);
+    const barsResponse = await api(allBarsUrl);
+    data.value = helloMessageResponse.data;
+
+    bars.value = barsResponse.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <nav>
+    <AppBar/>
+  </nav>
+
 </template>
 
 <style scoped>
